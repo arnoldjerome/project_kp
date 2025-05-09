@@ -37,12 +37,12 @@ Route::get('/contactus', function () {
     return view('contactus.index');
 });
 
-Route::get('/cart', function () {
-    return view('cart.index');
+Route::get('/invoice', function () {
+    return view('invoice.index');
 });
 
-Route::get('/checkout', function () {
-    return view('checkout.index');
+Route::get('/payment', function () {
+    return view('payment.index');
 });
 
 Route::get('/thankyou', function () {
