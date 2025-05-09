@@ -48,3 +48,11 @@ Route::get('/checkout', function () {
 Route::get('/thankyou', function () {
     return view('thankyou.index');
 });
+
+Route::get('/login', function () {
+    return view('login.index');
+});
+
+Route::get('/register', function () {
+    return view('register.index');
+});
