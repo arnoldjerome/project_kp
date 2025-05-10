@@ -22,7 +22,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="assets/css/tiny-slider.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-
     <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
 </head>
 
@@ -30,7 +29,6 @@
 
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <img src="assets/images/bcs.png" alt="Logo" style="height: 80px;">
@@ -64,7 +62,7 @@
     <!-- End Header/Navigation -->
 
     <!-- Start Hero Section -->
-    <div class="hero">
+    <div class="hero" style="background-color: #aa9a81;">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-5">

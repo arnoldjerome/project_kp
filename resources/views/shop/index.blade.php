@@ -61,7 +61,7 @@
 		<!-- End Header/Navigation -->
 
 		<!-- Start Hero Section -->
-			<div class="hero">
+			<div class="hero" style="background-color: #aa9a81;">
 				<div class="container">
 					<div class="row justify-content-between">
 						<div class="col-lg-5">

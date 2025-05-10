@@ -29,7 +29,9 @@
 <body>
 
 	<!-- Start Header/Navigation -->
-	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<!--<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar"> -->
+	<nav class="custom-navbar navbar navbar-expand-md navbar-dark" aria-label="Furni navigation bar">
+
 
 		<div class="container">
 			<a class="navbar-brand" href="index.html">
@@ -64,14 +66,13 @@
 	<!-- End Header/Navigation -->
 
 	<!-- Start Hero Section -->
-	<div class="hero">
+	<div class="hero" style="background-color: #aa9a81;">
 		<div class="container">
 			<div class="row justify-content-between">
 				<div class="col-lg-5">
 					<div class="intro-excerpt">
-						<h1>Modern Interior <span clsas="d-block">Design Studio</span></h1>
-						<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-							vulputate velit imperdiet dolor tempor tristique.</p>
+						<h1>BALI CIPTA <span clsas="d-block"> SARANA </span></h1>
+						<p class="mb-4">Bringing timeless comfort and style to both indoor and outdoor living.</p>
 						<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
 								class="btn btn-white-outline">Explore</a></p>
 					</div>
