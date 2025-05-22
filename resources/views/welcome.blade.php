@@ -23,7 +23,7 @@
 		rel="stylesheet">
 	<link href="/assets/css/tiny-slider.css" rel="stylesheet">
 	<link href="/assets/css/style.css" rel="stylesheet">
-	<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+	<title>BCS - BALI CIPTA SARANA</title>
 </head>
 
 <body>
@@ -43,8 +43,8 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse" id="navbarsFurni">
-				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+			<div class="collapse navbar-collapse justify-content-end" id="navbarsFurni">
+				{{-- <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 					<li class="nav-item active">
 						<a class="nav-link" href="index.html">Home</a>
 					</li>
@@ -53,11 +53,16 @@
 					<li><a class="nav-link" href="services.html">Services</a></li>
 					<li><a class="nav-link" href="blog.html">Blog</a></li>
 					<li><a class="nav-link" href="contact.html">Contact us</a></li>
-				</ul>
+				</ul> --}}
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li><a class="nav-link" href="login.html"><img src="/assets/images/user.svg"></a></li>
-					<li><a class="nav-link" href="cart.html"><img src="/assets/images/cart.svg"></a></li>
+					<li class="nav-item">
+                        <a href="login.html" class="btn btn-white-outline d-flex align-items-center gap-2 px-3 py-2">
+                          <img src="/assets/images/user.svg" alt="Login" style="width: 18px;">
+                          Login
+                        </a>
+                      </li>
+					{{-- <li><a class="nav-link" href="cart.html"><img src="/assets/images/cart.svg"></a></li> --}}
 				</ul>
 			</div>
 		</div>
@@ -73,8 +78,8 @@
 					<div class="intro-excerpt">
 						<h1>BALI CIPTA <span clsas="d-block"> SARANA </span></h1>
 						<p class="mb-4">Bringing timeless comfort and style to both indoor and outdoor living.</p>
-						<p><a href="" class="btn btn-secondary me-2">Shop Now</a><a href="#"
-								class="btn btn-white-outline">Explore</a></p>
+						<p><a href="#indoor" class="btn btn-secondary me-2">Our Catalog</a><a href="#footer"
+								class="btn btn-white-outline">Contact Us</a></p>
 					</div>
 				</div>
 				<div class="col-lg-7">
@@ -94,10 +99,9 @@
 
 				<!-- Start Column 1 -->
 				<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
-					<h2 class="mb-4 section-title">Crafted with excellent material.</h2>
-					<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-						vulputate velit imperdiet dolor tempor tristique. </p>
-					<p><a href="shop.html" class="btn">Explore</a></p>
+					<h2 id="indoor" class="mb-4 section-title"><b>Indoor Exclusive</b></h2>
+					<p class="mb-4">Crafted from premium teak wood, this indoor product combines natural beauty with exceptional durability. Designed for indoor use, it showcases the timeless appeal of solid teak—renowned for its strength, sturdiness, and resistance to wear. With a finely finished surface and a robust build, it offers both style and long-lasting performance, making it a perfect addition to any interior space. </p>
+					<p><a href="shop.html" class="btn">See More</a></p>
 				</div>
 				<!-- End Column 1 -->
 
@@ -144,11 +148,167 @@
 				<!-- End Column 4 -->
 
 			</div>
+            <div class="row mt-5">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Elegant Sofa</h3>
+                        <strong class="product-price">$85.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Vintage Armchair</h3>
+                        <strong class="product-price">$70.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Wooden Stool</h3>
+                        <strong class="product-price">$35.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Office Chair</h3>
+                        <strong class="product-price">$60.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 		</div>
 	</div>
 	<!-- End Product Section -->
 
-	<!-- Start Why Choose Us Section -->
+    <!-- Start Product Section -->
+	<div class="product-section">
+		<div class="container">
+			<div class="row">
+
+				<!-- Start Column 1 -->
+				<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+					<h2 class="mb-4 section-title"><b>Bold Outdoor</b></h2>
+					<p class="mb-4">Expertly crafted from solid teak wood, this outdoor piece is made to withstand the elements. Designed for open-air environments, it boasts exceptional strength, weather resistance, and timeless charm. The natural durability of teak ensures that it remains sturdy and beautiful, even through sun, rain, and time—making it a reliable and stylish companion for any outdoor space.</p>
+					<p><a href="shop.html" class="btn">See More</a></p>
+				</div>
+				<!-- End Column 1 -->
+
+				<!-- Start Column 2 -->
+				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+					<a class="product-item" href="cart.html">
+						<img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+						<h3 class="product-title">Nordic Chair</h3>
+						<strong class="product-price">$50.00</strong>
+
+						<span class="icon-cross">
+							<img src="/assets/images/cross.svg" class="img-fluid">
+						</span>
+					</a>
+				</div>
+				<!-- End Column 2 -->
+
+				<!-- Start Column 3 -->
+				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+					<a class="product-item" href="cart.html">
+						<img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+						<h3 class="product-title">Kruzo Aero Chair</h3>
+						<strong class="product-price">$78.00</strong>
+
+						<span class="icon-cross">
+							<img src="/assets/images/cross.svg" class="img-fluid">
+						</span>
+					</a>
+				</div>
+				<!-- End Column 3 -->
+
+				<!-- Start Column 4 -->
+				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+					<a class="product-item" href="cart.html">
+						<img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+						<h3 class="product-title">Ergonomic Chair</h3>
+						<strong class="product-price">$43.00</strong>
+
+						<span class="icon-cross">
+							<img src="/assets/images/cross.svg" class="img-fluid">
+						</span>
+					</a>
+				</div>
+				<!-- End Column 4 -->
+
+			</div>
+            <div class="row mt-5">
+                <div class="col-12 col-md-6 col-lg-3 mb-5">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Elegant Sofa</h3>
+                        <strong class="product-price">$85.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mb-5">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Vintage Armchair</h3>
+                        <strong class="product-price">$70.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mb-5">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Wooden Stool</h3>
+                        <strong class="product-price">$35.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3 mb-5">
+                    <a class="product-item" href="cart.html">
+                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">Office Chair</h3>
+                        <strong class="product-price">$60.00</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+		</div>
+	</div>
+	<!-- End Product Section -->
+
+	{{-- <!-- Start Why Choose Us Section -->
 	<div class="why-choose-section">
 		<div class="container">
 			<div class="row justify-content-between">
@@ -214,7 +374,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Why Choose Us Section -->
+	<!-- End Why Choose Us Section --> --}}
 
 	<!-- Start We Help Section -->
 	<div class="we-help-section">
@@ -228,25 +388,18 @@
 					</div>
 				</div>
 				<div class="col-lg-5 ps-lg-5">
-					<h2 class="section-title mb-4">We Help You Make Modern Interior Design</h2>
-					<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada.
-						Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque
-						habitant morbi tristique senectus et netus et malesuada</p>
-
-					<ul class="list-unstyled custom-list my-4">
-						<li>Donec vitae odio quis nisl dapibus malesuada</li>
-						<li>Donec vitae odio quis nisl dapibus malesuada</li>
-						<li>Donec vitae odio quis nisl dapibus malesuada</li>
-						<li>Donec vitae odio quis nisl dapibus malesuada</li>
-					</ul>
-					<p><a herf="#" class="btn">Explore</a></p>
+					<h2 class="section-title mb-4"><b>From Vision to Wooden Perfection</b></h2>
+					<p>We offer custom furniture and wood products tailored to your unique ideas and needs. Simply click the chat button to connect with our customer service team and share your concept. If you already have a sketch, feel free to send it over. Don’t have one yet? No worries—our team can help create a sketch for you.</p>
+                    <br>
+                    <p><b>Tap the chat button now and let’s start bringing your dream wood creation to life!</b></p>
+					<p><a herf="#" class="btn">Chat Now</a></p>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- End We Help Section -->
 
-	<!-- Start Popular Product -->
+	{{-- <!-- Start Popular Product -->
 	<div class="popular-product">
 		<div class="container">
 			<div class="row">
@@ -285,17 +438,17 @@
 						<div class="pt-3">
 							<h3>Ergonomic Chair</h3>
 							<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-							<p><a href="#">Read More</a></p>
-						</div>
+							<p><a href="#">Read More</a></p> --}}
+						{{-- </div>
 					</div>
 				</div>
 
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<!-- End Popular Product -->
 
-	<!-- Start Testimonial Slider -->
+	{{-- <!-- Start Testimonial Slider -->
 	<div class="testimonial-section">
 		<div class="container">
 			<div class="row">
@@ -469,7 +622,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- End Blog Section -->
+	<!-- End Blog Section --> --}}
 
 	<!-- Start Footer Section -->
 	<footer class="footer-section">
@@ -479,7 +632,7 @@
 				<img src="/assets/images/sofa.png" alt="Image" class="img-fluid">
 			</div>
 
-			<div class="row">
+			{{-- <div class="row">
 				<div class="col-lg-8">
 					<div class="subscription-form">
 						<h3 class="d-flex align-items-center"><span class="me-1"><img
@@ -502,14 +655,12 @@
 
 					</div>
 				</div>
-			</div>
+			</div> --}}
 
-			<div class="row g-5 mb-5">
+			<div id="footer" class="row g-5 mb-5">
 				<div class="col-lg-4">
-					<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
-					<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus
-						malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.
-						Pellentesque habitant</p>
+					<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Bali Cipta Sarana<span>.</span></a></div>
+					<p class="mb-4">Bringing timeless comfort and style to both indoor and outdoor living.</p>
 
 					<ul class="list-unstyled custom-social">
 						<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
