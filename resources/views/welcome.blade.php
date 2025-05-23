@@ -84,7 +84,7 @@
 				</div>
 				<div class="col-lg-7">
 					<div class="hero-img-wrap">
-						<img src="/assets/images/couch.png" class="img-fluid">
+						<img src="/assets/images/1.png" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -92,6 +92,8 @@
 	</div>
 	<!-- End Hero Section -->
 
+
+	<!-- INDOOR -->
 	<!-- Start Product Section -->
 	<div class="product-section">
 		<div class="container">
@@ -108,7 +110,7 @@
 				<!-- Start Column 2 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 					<a class="product-item" href="cart.html">
-						<img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+						<img src="/assets/images/in/22.png" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Nordic Chair</h3>
 						<strong class="product-price">$50.00</strong>
 
@@ -122,7 +124,7 @@
 				<!-- Start Column 3 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 					<a class="product-item" href="cart.html">
-						<img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+						<img src="/assets/images/in/10.png" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Kruzo Aero Chair</h3>
 						<strong class="product-price">$78.00</strong>
 
@@ -136,7 +138,7 @@
 				<!-- Start Column 4 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 					<a class="product-item" href="cart.html">
-						<img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+						<img src="/assets/images/in/11.png" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Ergonomic Chair</h3>
 						<strong class="product-price">$43.00</strong>
 
@@ -151,7 +153,7 @@
             <div class="row mt-5">
                 <div class="col-12 col-md-6 col-lg-3">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/in/17.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Elegant Sofa</h3>
                         <strong class="product-price">$85.00</strong>
                         <span class="icon-cross">
@@ -162,7 +164,7 @@
 
                 <div class="col-12 col-md-6 col-lg-3">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/in/6.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Vintage Armchair</h3>
                         <strong class="product-price">$70.00</strong>
                         <span class="icon-cross">
@@ -173,7 +175,7 @@
 
                 <div class="col-12 col-md-6 col-lg-3">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/in/18.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Wooden Stool</h3>
                         <strong class="product-price">$35.00</strong>
                         <span class="icon-cross">
@@ -184,7 +186,7 @@
 
                 <div class="col-12 col-md-6 col-lg-3">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/in/19.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Office Chair</h3>
                         <strong class="product-price">$60.00</strong>
                         <span class="icon-cross">
@@ -200,6 +202,8 @@
 	</div>
 	<!-- End Product Section -->
 
+
+	<!-- OUTDOOR -->
     <!-- Start Product Section -->
 	<div class="product-section">
 		<div class="container">
@@ -216,7 +220,7 @@
 				<!-- Start Column 2 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 					<a class="product-item" href="cart.html">
-						<img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+						<img src="/assets/images/out/7.png" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Nordic Chair</h3>
 						<strong class="product-price">$50.00</strong>
 
@@ -230,7 +234,7 @@
 				<!-- Start Column 3 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 					<a class="product-item" href="cart.html">
-						<img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+						<img src="/assets/images/out/12.png" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Kruzo Aero Chair</h3>
 						<strong class="product-price">$78.00</strong>
 
@@ -244,7 +248,7 @@
 				<!-- Start Column 4 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 					<a class="product-item" href="cart.html">
-						<img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+						<img src="/assets/images/out/13.png" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Ergonomic Chair</h3>
 						<strong class="product-price">$43.00</strong>
 
@@ -259,7 +263,7 @@
             <div class="row mt-5">
                 <div class="col-12 col-md-6 col-lg-3 mb-5">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/out/21.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Elegant Sofa</h3>
                         <strong class="product-price">$85.00</strong>
                         <span class="icon-cross">
@@ -270,7 +274,7 @@
 
                 <div class="col-12 col-md-6 col-lg-3 mb-5">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-2.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/out/23.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Vintage Armchair</h3>
                         <strong class="product-price">$70.00</strong>
                         <span class="icon-cross">
@@ -281,7 +285,7 @@
 
                 <div class="col-12 col-md-6 col-lg-3 mb-5">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-3.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/out/29.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Wooden Stool</h3>
                         <strong class="product-price">$35.00</strong>
                         <span class="icon-cross">
@@ -292,7 +296,7 @@
 
                 <div class="col-12 col-md-6 col-lg-3 mb-5">
                     <a class="product-item" href="cart.html">
-                        <img src="/assets/images/product-1.png" class="img-fluid product-thumbnail">
+                        <img src="/assets/images/out/30.png" class="img-fluid product-thumbnail">
                         <h3 class="product-title">Office Chair</h3>
                         <strong class="product-price">$60.00</strong>
                         <span class="icon-cross">
@@ -388,10 +392,10 @@
 					</div>
 				</div>
 				<div class="col-lg-5 ps-lg-5">
-					<h2 class="section-title mb-4"><b>From Vision to Wooden Perfection</b></h2>
-					<p>We offer custom furniture and wood products tailored to your unique ideas and needs. Simply click the chat button to connect with our customer service team and share your concept. If you already have a sketch, feel free to send it over. Don’t have one yet? No worries—our team can help create a sketch for you.</p>
+					<h2 class="section-title mb-4" style="color: black;"><b>From Vision to Wooden Perfection</b></h2>
+					<p style="color: white;">We offer custom furniture and wood products tailored to your unique ideas and needs. Simply click the chat button to connect with our customer service team and share your concept. If you already have a sketch, feel free to send it over. Don’t have one yet? No worries—our team can help create a sketch for you.</p>
                     <br>
-                    <p><b>Tap the chat button now and let’s start bringing your dream wood creation to life!</b></p>
+                    <p style="color: white;"><b>Tap the chat button now and let’s start bringing your dream wood creation to life!</b></p>
 					<p><a herf="#" class="btn">Chat Now</a></p>
 				</div>
 			</div>
