@@ -57,7 +57,7 @@
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 					<li class="nav-item">
-                        <a href="login.html" class="btn btn-white-outline d-flex align-items-center gap-2 px-3 py-2">
+                        <a href="login" class="btn btn-white-outline d-flex align-items-center gap-2 px-3 py-2">
                           <img src="/assets/images/user.svg" alt="Login" style="width: 18px;">
                           Login
                         </a>
