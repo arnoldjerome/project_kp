@@ -2,53 +2,60 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Untree.co">
-  <title>Register | Furni</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | BCS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .btn-custom {
+      background-color: #d0c1a9;
+      color: #000;
+      border: none;
+    }
 
-  <!-- Styles -->
-  <link rel="shortcut icon" href="favicon.png">
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="assets/css/tiny-slider.css" rel="stylesheet">
-  <link href="assets/css/style.css" rel="stylesheet">
+    .btn-custom:hover {
+      background-color: #b8a88e;
+      color: #000;
+    }
+  </style>
 </head>
 
 <body class="bg-light">
 
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card shadow border-0">
-          <div class="card-body">
-            <h2 class="text-center mb-4">Register</h2>
-            <form action="#" method="POST">
-              <div class="form-group mb-3">
-                <label for="registerName">Full Name</label>
-                <input type="text" class="form-control" id="registerName" placeholder="Enter your name">
-              </div>
-              <div class="form-group mb-3">
-                <label for="registerEmail">Email address</label>
-                <input type="email" class="form-control" id="registerEmail" placeholder="Enter email">
-              </div>
-              <div class="form-group mb-4">
-                <label for="registerPassword">Password</label>
-                <input type="password" class="form-control" id="registerPassword" placeholder="Password">
-              </div>
-              <button type="submit" class="btn btn-outline-primary w-100">Register</button>
-            </form>
-            <p class="mt-3 text-center">Already have an account? <a href="login.html">Login</a></p>
-          </div>
+  <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style="background-color: #d0c1a9;">
+    <div class="row w-100 justify-content-center">
+      <div class="col-lg-8 bg-white rounded-4 shadow d-flex overflow-hidden p-0">
+
+        <!-- Left Panel (background image full) -->
+        <div class="col-md-6 p-0" style="background: url('/assets/images/bcsBg.png') no-repeat center center; background-size: cover;">
+          <!-- Empty -->
         </div>
+
+        <!-- Right Panel -->
+        <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+          <h4 class="mb-4"><b>Register</b></h4>
+          <form action="#" method="POST">
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Username" name="username" required />
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder="Password" name="password" required />
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" placeholder="Repeat Password" name="repeat_password" required />
+            </div>
+            <button type="submit" class="btn btn-custom w-100 mb-2">Register</button>
+            <div class="text-center">
+              <small>Already have an account? <a href="login" class="text-primary text-decoration-none">Login</a></small>
+            </div>
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="assets/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/tiny-slider.js"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
