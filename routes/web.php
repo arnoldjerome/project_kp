@@ -56,3 +56,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('register.index');
 });
+
+Route::get('/detailproduct', function () {
+    return view('detailproduct.index');
+});
