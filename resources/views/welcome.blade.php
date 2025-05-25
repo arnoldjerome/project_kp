@@ -19,8 +19,7 @@
 
 	<!-- Bootstrap CSS -->
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3//assets/css/all.min.css"
-		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-wNfYc2rO2mfIyt9f9Q4tZ0O0ax9OdrN+jC8A1y6v9Ek5CRmRUJzjXigIQdcZkXzHZQzLxxBvlh9PvWRZ6HFvYw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link href="/assets/css/tiny-slider.css" rel="stylesheet">
 	<link href="/assets/css/style.css" rel="stylesheet">
 	<title>BCS - BALI CIPTA SARANA</title>
@@ -103,7 +102,7 @@
 				<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 					<h2 id="indoor" class="mb-4 section-title"><b>Indoor Exclusive</b></h2>
 					<p class="mb-4">Crafted from premium teak wood, this indoor product combines natural beauty with exceptional durability. Designed for indoor use, it showcases the timeless appeal of solid teak—renowned for its strength, sturdiness, and resistance to wear. With a finely finished surface and a robust build, it offers both style and long-lasting performance, making it a perfect addition to any interior space. </p>
-					<p><a href="shop.html" class="btn">See More</a></p>
+					<p><a href="{{ url('/productint') }}" class="btn">See More</a></p>
 				</div>
 				<!-- End Column 1 -->
 
@@ -213,7 +212,7 @@
 				<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 					<h2 class="mb-4 section-title"><b>Bold Outdoor</b></h2>
 					<p class="mb-4">Expertly crafted from solid teak wood, this outdoor piece is made to withstand the elements. Designed for open-air environments, it boasts exceptional strength, weather resistance, and timeless charm. The natural durability of teak ensures that it remains sturdy and beautiful, even through sun, rain, and time—making it a reliable and stylish companion for any outdoor space.</p>
-					<p><a href="shop.html" class="btn">See More</a></p>
+					<p><a href="{{ url('/productext') }}" class="btn">See More</a></p>
 				</div>
 				<!-- End Column 1 -->
 
@@ -667,14 +666,14 @@
 					<p class="mb-4">Bringing timeless comfort and style to both indoor and outdoor living.</p>
 
 					<ul class="list-unstyled custom-social">
-						<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-						<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-						<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-						<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-					</ul>
+                        <li><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                        <li><a href="#"><span class="fab fa-twitter"></span></a></li>
+                        <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                        <li><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
+                    </ul>
 				</div>
 
-				<div class="col-lg-8">
+				{{-- <div class="col-lg-8">
 					<div class="row links-wrap">
 						<div class="col-6 col-sm-6 col-md-3">
 							<ul class="list-unstyled">
@@ -710,7 +709,7 @@
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 
 			</div>
 

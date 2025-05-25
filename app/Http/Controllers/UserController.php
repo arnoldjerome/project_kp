@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -67,5 +69,23 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showLoginForm()
+    {
+        return view('login.index');
+    }
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user && Hash::check($credentials['password'], $user->password)) {
+            Auth::login($user); // Simpan user ke session
+            return redirect('/'); // atau ke dashboard
+        }
+
+        return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 }
