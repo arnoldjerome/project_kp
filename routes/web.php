@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/aboutus', function () {
-    return view('aboutus.index');
+Route::get('/chat', function () {
+    return view('chat.index');
 });
 
 Route::get('/services', function () {
@@ -63,3 +64,9 @@ Route::get('/register', function () {
 Route::get('/detailproduct', function () {
     return view('detailproduct.index');
 });
+
+Route::post('/register', [UserController::class, 'store'])->name('register.process');
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');

@@ -43,26 +43,35 @@
 			</button>
 
 			<div class="collapse navbar-collapse justify-content-end" id="navbarsFurni">
-				{{-- <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-					<li class="nav-item active">
-						<a class="nav-link" href="index.html">Home</a>
-					</li>
-					<li><a class="nav-link" href="shop.html">Shop</a></li>
-					<li><a class="nav-link" href="about.html">About us</a></li>
-					<li><a class="nav-link" href="services.html">Services</a></li>
-					<li><a class="nav-link" href="blog.html">Blog</a></li>
-					<li><a class="nav-link" href="contact.html">Contact us</a></li>
-				</ul> --}}
+				@auth
+<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+    </li>
+    <li class="nav-item">
+        <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
+            <b>Welcome, {{ Auth::user()->name }}</b>
+        </span>
+    </li>
+    <li class="nav-item">
+        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button class="btn btn-link nav-link" type="submit">Logout</button>
+        </form>
+    </li>
+</ul>
+@endauth
 
-				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li class="nav-item">
-                        <a href="login" class="btn btn-white-outline d-flex align-items-center gap-2 px-3 py-2">
-                          <img src="/assets/images/user.svg" alt="Login" style="width: 18px;">
-                          Login
-                        </a>
-                      </li>
-					{{-- <li><a class="nav-link" href="cart.html"><img src="/assets/images/cart.svg"></a></li> --}}
-				</ul>
+
 			</div>
 		</div>
 

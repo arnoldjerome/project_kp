@@ -36,6 +36,7 @@
           <h4 class="mb-4"><b>Register</b></h4>
           <form action="#" method="POST">
             <div class="mb-3">
+                @csrf
               <input type="text" class="form-control" placeholder="Username" name="username" required />
             </div>
             <div class="mb-3">

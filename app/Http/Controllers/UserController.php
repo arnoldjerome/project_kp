@@ -33,10 +33,13 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
+            'role' => 'required|in:admin,customer',
         ]);
+        $validated['password'] = Hash::make($validated['password']);
 
         $user = User::create($validated);
-        return response()->json($user, 201);
+        Auth::login($user);
+        return redirect('/');
     }
 
     /**
@@ -77,15 +80,19 @@ class UserController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
         $user = User::where('email', $credentials['email'])->first();
 
         if ($user && Hash::check($credentials['password'], $user->password)) {
-            Auth::login($user); // Simpan user ke session
-            return redirect('/'); // atau ke dashboard
+            Auth::login($user);
+            return redirect('/');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);
     }
+
 }
