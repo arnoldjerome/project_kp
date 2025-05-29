@@ -42,22 +42,43 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarsFurni">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsFurni">
+                @auth
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item ">
-                        <a class="nav-link" href="index.html">Home</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/') }}">Home</a>
                     </li>
-                    <li><a class="nav-link" href="shop.html">Shop</a></li>
-                    <li><a class="nav-link" href="about.html">About us</a></li>
-                    <li><a class="nav-link" href="services.html">Services</a></li>
-                    <li><a class="nav-link" href="blog.html">Blog</a></li>
-                    <li><a class="nav-link" href="contact.html">Contact us</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
+                            <b>Welcome, {{ Auth::user()->name }}</b>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button class="btn btn-link nav-link" type="submit">Logout</button>
+                        </form>
+                    </li>
                 </ul>
-
-                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                    <li><a class="nav-link" href="login.html"><img src="/assets/images/user.svg"></a></li>
-                    <li><a class="nav-link" href="cart.html"><img src="/assets/images/cart.svg"></a></li>
-                </ul>
+                @endauth
+                @guest
+                <ul>
+                    <li >
+                        <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
+                    </li>
+                @endguest
             </div>
         </div>
 

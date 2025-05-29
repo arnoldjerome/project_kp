@@ -33,13 +33,18 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'role' => 'required|in:admin,customer',
+            'repeat_password' => 'required|same:password',
         ]);
-        $validated['password'] = Hash::make($validated['password']);
 
-        $user = User::create($validated);
-        Auth::login($user);
-        return redirect('/');
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'customer', // default
+        ]);
+
+        User::create($validated);
+    return redirect('/login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
 
     /**

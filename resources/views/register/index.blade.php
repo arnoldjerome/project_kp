@@ -34,10 +34,24 @@
         <!-- Right Panel -->
         <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
           <h4 class="mb-4"><b>Register</b></h4>
-          <form action="#" method="POST">
+
+          @if ($errors->any())
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+
+          <form action="{{ route('register.process') }}" method="POST">
+            @csrf
             <div class="mb-3">
-                @csrf
-              <input type="text" class="form-control" placeholder="Username" name="username" required />
+              <input type="text" class="form-control" placeholder="Name" name="name" required />
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Email" name="email" required />
             </div>
             <div class="mb-3">
               <input type="password" class="form-control" placeholder="Password" name="password" required />
@@ -47,7 +61,7 @@
             </div>
             <button type="submit" class="btn btn-custom w-100 mb-2">Register</button>
             <div class="text-center">
-              <small>Already have an account? <a href="login" class="text-primary text-decoration-none">Login</a></small>
+              <small>Already have an account? <a href="{{ route('login') }}" class="text-primary text-decoration-none">Login</a></small>
             </div>
           </form>
         </div>
