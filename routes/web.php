@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -47,9 +48,8 @@ Route::get('/thankyou', function () {
     return view('thankyou.index');
 });
 
-Route::get('/productint', function () {
-    return view('productint.index');
-});
+Route::get('/productint', [ProductController::class, 'showIndoor']);
+
 Route::get('/productext', function () {
     return view('productext.index');
 });
@@ -61,9 +61,7 @@ Route::get('/register', function () {
     return view('register.index');
 });
 
-Route::get('/detailproduct', function () {
-    return view('detailproduct.index');
-});
+Route::get('/detailproduct/{id}', [ProductController::class, 'show'])->name('product.detail');
 
 Route::post('/register', [UserController::class, 'store'])->name('register.process');
 Route::post('/logout', function () {

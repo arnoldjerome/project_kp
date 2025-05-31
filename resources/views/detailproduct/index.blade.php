@@ -50,7 +50,7 @@
   <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img src="assets/images/bcs.png" alt="Logo" style="height: 80px;">
+        <img src="{{ asset('assets/images/bcs.png') }}" alt="Logo" style="height: 80px;">
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
@@ -58,21 +58,43 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarsFurni">
-        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="active"><a class="nav-link" href="shop.html">Shop</a></li>
-          <li><a class="nav-link" href="about.html">About us</a></li>
-          <li><a class="nav-link" href="services.html">Services</a></li>
-          <li><a class="nav-link" href="blog.html">Blog</a></li>
-          <li><a class="nav-link" href="contact.html">Contact us</a></li>
-        </ul>
-
-        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          <li><a class="nav-link" href="login.html"><img src="/assets/images/user.svg"></a></li>
-          <li><a class="nav-link" href="cart.html"><img src="/assets/images/cart.svg"></a></li>
-        </ul>
-      </div>
+      @auth
+                    <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
+                                <b>Welcome, {{ Auth::user()->name }}</b>
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button class="btn btn-link nav-link" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                    @endauth
+                    @guest
+                    <ul>
+                        <li >
+                            <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endguest
+                </div>
     </div>
   </nav>
   <!-- End Header/Navigation -->
@@ -81,14 +103,14 @@
     <div class="row g-5 align-items-start">
       <!-- Gambar Produk -->
       <div class="col-md-6 text-center">
-        <img src="/assets/images/in/10.png" alt="Produk" class="product-image">
+        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product-image">
       </div>
 
       <!-- Detail Produk -->
       <div class="col-md-6">
-        <h2 class="fw-normal text-dark"><b>SOFA</b></h2>
-        <p class="fs-5 text-dark">Rp 1.500.000</p>
-        <p class="text-dark">Indoor Furniture</p>
+        <h2 class="fw-normal text-dark"><b>{{ strtoupper($product->name) }}</b></h2>
+        <p class="fs-5 text-dark">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+        <p class="text-dark">{{ $product->category->name }} Furniture</p>
 
         <!-- Selector jumlah -->
         <div class="d-flex align-items-center mb-3">
@@ -115,24 +137,9 @@
               </button>
             </h2>
             <div id="collapseDesc" class="accordion-collapse collapse" data-bs-parent="#productDetailsAccordion">
-              <div class="accordion-body">
-                Ini adalah deskripsi produk lengkap. Cocok untuk segala kebutuhan dan dibuat dengan material berkualitas.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="headingDetails">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseDetails">
-                Detail
-              </button>
-            </h2>
-            <div id="collapseDetails" class="accordion-collapse collapse" data-bs-parent="#productDetailsAccordion">
-              <div class="accordion-body">
-                • Ukuran: 40x60 cm<br>
-                • Material: Beton alami<br>
-                • Berat: 5 kg
-              </div>
+                <div class="accordion-body">
+                    {{ $product->description }}
+                  </div>
             </div>
           </div>
           <div class="accordion-item">
@@ -143,9 +150,9 @@
               </button>
             </h2>
             <div id="collapseReturn" class="accordion-collapse collapse" data-bs-parent="#productDetailsAccordion">
-              <div class="accordion-body">
-                Tersedia: 25 unit
-              </div>
+                <div class="accordion-body">
+                    Tersedia: {{ $product->stock }} unit
+                  </div>
             </div>
           </div>
         </div>

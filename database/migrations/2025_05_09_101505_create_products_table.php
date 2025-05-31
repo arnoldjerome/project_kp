@@ -13,10 +13,12 @@ return new class extends Migration {
             $table->text('description');
             $table->decimal('price', 12, 2);
             $table->integer('stock');
+            $table->string('image_url')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
+
 
     public function down(): void
     {

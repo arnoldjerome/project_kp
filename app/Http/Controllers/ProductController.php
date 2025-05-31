@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::with('category')->findOrFail($id);
-        return response()->json($product);
+        return view('detailproduct.index', compact('product'));
     }
 
     // Membuat produk baru
@@ -62,4 +62,10 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Product deleted successfully']);
     }
+    public function showIndoor()
+    {
+        $products = Product::where('category_id', 1)->get(); // 1 = Indoor
+        return view('productint.index', compact('products'));
+    }
+
 }
