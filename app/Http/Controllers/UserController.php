@@ -42,9 +42,7 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
             'role' => 'customer', // default
         ]);
-
-        User::create($validated);
-    return redirect('/login')->with('success', 'Akun berhasil dibuat. Silakan login.');
+        return redirect('/login')->with('success', 'Akun berhasil dibuat. Silakan login.');
     }
 
     /**
