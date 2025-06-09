@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\WelcomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,10 @@ Route::get('/thankyou', function () {
 
 Route::get('/productint', [ProductController::class, 'showIndoor']);
 Route::get('/productext', [ProductController::class, 'showOutdoor']);
+
+
+Route::get('/', [WelcomeController::class, 'index']);
+
 
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login.process');
