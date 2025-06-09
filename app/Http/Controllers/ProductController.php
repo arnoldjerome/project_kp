@@ -68,4 +68,10 @@ class ProductController extends Controller
         return view('productint.index', compact('products'));
     }
 
+    public function showOutdoor()
+    {
+        $products = Product::where('category_id', 2)->get(); // 2 = Outdoor
+        return view('productext.index', compact('products'));
+    }
+
 }

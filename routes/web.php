@@ -49,10 +49,7 @@ Route::get('/thankyou', function () {
 });
 
 Route::get('/productint', [ProductController::class, 'showIndoor']);
-
-Route::get('/productext', function () {
-    return view('productext.index');
-});
+Route::get('/productext', [ProductController::class, 'showOutdoor']);
 
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [UserController::class, 'login'])->name('login.process');
