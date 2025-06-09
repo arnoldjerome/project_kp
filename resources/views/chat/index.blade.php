@@ -49,7 +49,11 @@
                         <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+                        @if(Auth::user()->role === 'admin')
+                            <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
+                        @else
+                            <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+                        @endif
                     </li>
                     <li class="nav-item">
                         <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
