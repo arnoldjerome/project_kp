@@ -122,8 +122,7 @@
     <div class="product-section">
         <div class="container">
             <div class="row">
-
-                <!-- Start Column 1 -->
+                <!-- Kolom teks: kiri -->
                 <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
                     <h2 id="indoor" class="mb-4 section-title"><b>Indoor Exclusive</b></h2>
                     <p class="mb-4">Crafted from premium teak wood, this indoor product combines natural beauty with
@@ -132,23 +131,37 @@
                         surface and a robust build, it offers both style and long-lasting performance, making it a
                         perfect addition to any interior space. </p>
                     <p><a href="{{ url('/productint') }}" class="btn">See More</a></p>
+
+                    @if (count($indoorProducts) > 0)
+                    <a class="product-item d-block" href="cart.html" style="padding-top: 82px;">
+                            <img src="{{ $indoorProducts[0]->image_url }}" class="img-fluid product-thumbnail">
+                            <h3 class="product-title">{{ $indoorProducts[0]->name }}</h3>
+                            <strong
+                                class="product-price">{{ number_format($indoorProducts[0]->price, 0, ',', '.') }}</strong>
+                            <span class="icon-cross">
+                                <img src="/assets/images/cross.svg" class="img-fluid">
+                            </span>
+                        </a>
+                    @endif
                 </div>
-                <!-- End Column 1 -->
 
-                <div class="row">
-                    @foreach ($indoorProducts as $product)
-                        <div class="col-12 col-md-4 col-lg-3 mb-5">
-                            <a class="product-item" href="cart.html">
-                                <img src="{{ $product->image_url }}" class="img-fluid product-thumbnail">
-                                <h3 class="product-title">{{ $product->name }}</h3>
-                                <strong class="product-price">{{ number_format($product->price, 0, ',', '.') }}</strong>
 
-                                <span class="icon-cross">
-                                    <img src="/assets/images/cross.svg" class="img-fluid">
-                                </span>
-                            </a>
-                        </div>
-                    @endforeach
+                <!-- Kolom produk: kanan -->
+                <div class="col-md-12 col-lg-9">
+                    <div class="row">
+                        @foreach ($indoorProducts->slice(1) as $product)
+                            <div class="col-12 col-md-6 col-lg-4 mb-5">
+                                <a class="product-item" href="cart.html">
+                                    <img src="{{ $product->image_url }}" class="img-fluid product-thumbnail">
+                                    <h3 class="product-title">{{ $product->name }}</h3>
+                                    <strong class="product-price">{{ number_format($product->price, 0, ',', '.') }}</strong>
+                                    <span class="icon-cross">
+                                        <img src="/assets/images/cross.svg" class="img-fluid">
+                                    </span>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,23 +184,35 @@
                         and beautiful, even through sun, rain, and time—making it a reliable and stylish companion for
                         any outdoor space.</p>
                     <p><a href="{{ url('/productext') }}" class="btn">See More</a></p>
+
+                    @if (count($outdoorProducts) > 0)
+                    <a class="product-item d-block" href="cart.html" style="padding-top: 82px;">
+                        <img src="{{ $outdoorProducts[0]->image_url }}" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">{{ $outdoorProducts[0]->name }}</h3>
+                        <strong class="product-price">{{ number_format($outdoorProducts[0]->price, 0, ',', '.') }}</strong>
+                        <span class="icon-cross">
+                            <img src="/assets/images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                @endif
                 </div>
                 <!-- End Column 1 -->
 
-                <div class="row">
-                    @foreach ($outdoorProducts as $product)
-                        <div class="col-12 col-md-4 col-lg-3 mb-5">
-                            <a class="product-item" href="cart.html">
-                                <img src="{{ $product->image_url }}" class="img-fluid product-thumbnail">
-                                <h3 class="product-title">{{ $product->name }}</h3>
-                                <strong class="product-price">{{ number_format($product->price, 0, ',', '.') }}</strong>
-
-                                <span class="icon-cross">
-                                    <img src="/assets/images/cross.svg" class="img-fluid">
-                                </span>
-                            </a>
-                        </div>
-                    @endforeach
+                <div class="col-md-12 col-lg-9">
+                    <div class="row">
+                        @foreach ($outdoorProducts->slice(1) as $product)
+                            <div class="col-12 col-md-6 col-lg-4 mb-5">
+                                <a class="product-item" href="cart.html">
+                                    <img src="{{ $product->image_url }}" class="img-fluid product-thumbnail">
+                                    <h3 class="product-title">{{ $product->name }}</h3>
+                                    <strong class="product-price">{{ number_format($product->price, 0, ',', '.') }}</strong>
+                                    <span class="icon-cross">
+                                        <img src="/assets/images/cross.svg" class="img-fluid">
+                                    </span>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
