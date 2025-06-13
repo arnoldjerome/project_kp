@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CustomRequestController;
 
 
 /*
@@ -32,10 +33,6 @@ Route::get('/services', function () {
 
 Route::get('/blog', function () {
     return view('blog.index');
-});
-
-Route::get('/contactus', function () {
-    return view('contactus.index');
 });
 
 Route::get('/invoice', function () {
@@ -71,3 +68,6 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/login');
 })->name('logout');
+
+Route::get('/customrequests', [CustomRequestController::class, 'index'])->name('customrequests.index');
+Route::post('/customrequests/{id}/approve', [CustomRequestController::class, 'updateStatus'])->name('customrequests.approve');
