@@ -2,14 +2,14 @@
 <html lang="id">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Detail Produk</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3//assets/css/all.min.css" rel="stylesheet">
-  <link href="/assets/css/tiny-slider.css" rel="stylesheet">
-  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3//assets/css/all.min.css" rel="stylesheet" />
+  <link href="/assets/css/tiny-slider.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
   <style>
     body {
       background-color: #fefdf9;
@@ -49,8 +49,8 @@
   <!-- Start Header/Navigation -->
   <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="{{ asset('assets/images/bcs.png') }}" alt="Logo" style="height: 80px;">
+      <a class="navbar-brand" href="{{ url('/') }}">
+        <img src="{{ asset('assets/images/bcs.png') }}" alt="Logo" style="height: 80px;" />
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
@@ -59,46 +59,47 @@
       </button>
 
       @auth
-                    <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
-                        </li>
-                        <li class="nav-item">
-                            @if(Auth::user()->role === 'admin')
-                                <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
-                            @else
-                                <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
-                            @endif
-                        </li>
-                        <li class="nav-item">
-                            <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
-                                <b>Welcome, {{ Auth::user()->name }}</b>
-                            </span>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button class="btn btn-link nav-link" type="submit">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                    @endauth
-                    @guest
-                    <ul>
-                        <li >
-                            <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
-                        </li>
-                    @endguest
-                </div>
+      <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
+        </li>
+        <li class="nav-item">
+          @if(Auth::user()->role === 'admin')
+          <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
+          @else
+          <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+          @endif
+        </li>
+        <li class="nav-item">
+          <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
+            <b>Welcome, {{ Auth::user()->name }}</b>
+          </span>
+        </li>
+        <li class="nav-item">
+          <form action="{{ route('logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button class="btn btn-link nav-link" type="submit">Logout</button>
+          </form>
+        </li>
+      </ul>
+      @endauth
+
+      @guest
+      <ul>
+        <li>
+          <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
+        </li>
+      </ul>
+      @endguest
     </div>
   </nav>
   <!-- End Header/Navigation -->
@@ -107,7 +108,7 @@
     <div class="row g-5 align-items-start">
       <!-- Gambar Produk -->
       <div class="col-md-6 text-center">
-        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product-image">
+        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="product-image" />
       </div>
 
       <!-- Detail Produk -->
@@ -121,14 +122,18 @@
           <div class="quantity-selector d-flex align-items-center">
             <button class="btn btn-outline-secondary" type="button" id="btn-minus">−</button>
             <input type="text" class="form-control text-center mx-1" id="quantity-input" value="1" readonly
-              style="width: 60px;">
+              style="width: 60px" />
             <button class="btn btn-outline-secondary" type="button" id="btn-plus">+</button>
           </div>
         </div>
 
         <!-- Tombol keranjang -->
         <div class="mb-4">
+          @auth
           <button class="btn btn-dark w-100">Buy Now</button>
+          @else
+          <button id="guestBuyNow" class="btn btn-dark w-100">Buy Now</button>
+          @endauth
         </div>
 
         <!-- Accordion untuk info tambahan -->
@@ -141,9 +146,9 @@
               </button>
             </h2>
             <div id="collapseDesc" class="accordion-collapse collapse" data-bs-parent="#productDetailsAccordion">
-                <div class="accordion-body">
-                    {{ $product->description }}
-                  </div>
+              <div class="accordion-body">
+                {{ $product->description }}
+              </div>
             </div>
           </div>
           <div class="accordion-item">
@@ -154,9 +159,9 @@
               </button>
             </h2>
             <div id="collapseReturn" class="accordion-collapse collapse" data-bs-parent="#productDetailsAccordion">
-                <div class="accordion-body">
-                    Tersedia: {{ $product->stock }} unit
-                  </div>
+              <div class="accordion-body">
+                Tersedia: {{ $product->stock }} unit
+              </div>
             </div>
           </div>
         </div>
@@ -167,6 +172,7 @@
   <!-- Script Bootstrap dan JS Button Logic -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Quantity buttons logic
     document.getElementById('btn-minus').addEventListener('click', () => {
       const input = document.getElementById('quantity-input');
       let value = parseInt(input.value);
@@ -180,6 +186,14 @@
       let value = parseInt(input.value);
       input.value = value + 1;
     });
+
+    // Guest Buy Now alert and redirect
+    @guest
+    document.getElementById('guestBuyNow').addEventListener('click', function() {
+      alert("Anda tidak bisa melakukan pembelian karena anda belum melakukan login.");
+      window.location.href = "{{ route('login') }}";
+    });
+    @endguest
   </script>
 </body>
 

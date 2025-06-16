@@ -66,6 +66,8 @@ Route::get('/register', function () {
 
 Route::get('/detailproduct/{id}', [ProductController::class, 'show'])->name('product.detail');
 
+
+
 Route::post('/register', [UserController::class, 'store'])->name('register.process');
 Route::post('/logout', function () {
     Auth::logout();
