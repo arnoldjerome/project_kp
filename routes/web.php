@@ -37,6 +37,10 @@ Route::get('/blog', function () {
     return view('blog.index');
 });
 
+Route::get('/checkout', function () {
+    return view('checkout.index');
+});
+
 Route::get('/invoice', function () {
     $user = Auth::user();
     $orders = \App\Models\Order::with(['items.product', 'payment'])
@@ -90,3 +94,5 @@ Route::get('/payment/{order_id}', function ($order_id) {
 })->name('payment.page');
 
 Route::put('/payment/confirm/{id}', [PaymentController::class, 'updateStatus'])->name('payment.confirm');
+
+
