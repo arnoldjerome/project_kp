@@ -45,13 +45,6 @@ class TransactionSeeder extends Seeder
             'callback_response' => json_encode(['status' => 'PAID']),
         ]);
 
-        Invoice::create([
-            'order_id' => $order->id,
-            'invoice_code' => 'INV-2025001',
-            'amount' => $product->price,
-            'generated_at' => now(),
-        ]);
-
         $chat = Chat::create([
             'user_id' => $customer->id,
             'admin_id' => $admin->id,

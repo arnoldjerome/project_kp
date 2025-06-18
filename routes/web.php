@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CustomRequestController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CheckoutController;
 
 
 /*
@@ -36,8 +38,15 @@ Route::get('/blog', function () {
 });
 
 Route::get('/invoice', function () {
-    return view('invoice.index');
-});
+    $user = Auth::user();
+    $orders = \App\Models\Order::with(['items.product', 'payment'])
+        ->where('user_id', $user->id)
+        ->whereHas('payment') // hanya yang sudah ada pembayaran
+        ->get();
+
+    return view('invoice.index', compact('orders'));
+})->middleware('auth')->name('invoice.index');
+
 
 Route::get('/payment', function () {
     return view('payment.index');
@@ -73,3 +82,11 @@ Route::post('/logout', function () {
 
 Route::get('/customrequests', [CustomRequestController::class, 'index'])->name('customrequests.index');
 Route::post('/customrequests/{id}/approve', [CustomRequestController::class, 'updateStatus'])->name('customrequests.approve');
+
+Route::post('/checkout', [CheckoutController::class, 'process'])->middleware('auth')->name('checkout.process');
+Route::get('/payment/{order_id}', function ($order_id) {
+    $order = \App\Models\Order::with(['items', 'payment'])->findOrFail($order_id);
+    return view('payment.index', compact('order'));
+})->name('payment.page');
+
+Route::put('/payment/confirm/{id}', [PaymentController::class, 'updateStatus'])->name('payment.confirm');

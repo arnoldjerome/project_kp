@@ -129,12 +129,31 @@
 
         <!-- Tombol keranjang -->
         <div class="mb-4">
-          @auth
-          <button class="btn btn-dark w-100">Buy Now</button>
-          @else
-          <button id="guestBuyNow" class="btn btn-dark w-100">Buy Now</button>
-          @endauth
-        </div>
+            @auth
+              @if(Auth::user()->role === 'customer')
+                <form action="{{ route('checkout.process') }}" method="POST">
+                  @csrf
+                  <input type="hidden" name="product_id" value="{{ $product->id }}">
+                  <input type="hidden" name="price" value="{{ $product->price }}">
+                  <input type="hidden" id="quantity-hidden" name="quantity" value="1">
+                  <button class="btn btn-dark w-100">Buy Now</button>
+                </form>
+              @else
+                <button class="btn btn-secondary w-100" disabled>Only customers can buy</button>
+              @endif
+            @else
+              <button id="guestBuyNow" class="btn btn-dark w-100">Buy Now</button>
+            @endauth
+          </div>
+
+          @guest
+          <script>
+            document.getElementById('guestBuyNow').addEventListener('click', function () {
+              alert("Anda harus login sebagai customer untuk membeli produk.");
+              window.location.href = "{{ route('login') }}";
+            });
+          </script>
+          @endguest
 
         <!-- Accordion untuk info tambahan -->
         <div class="accordion" id="productDetailsAccordion">
