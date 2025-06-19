@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
@@ -13,23 +14,33 @@ class CheckoutController extends Controller
     public function process(Request $request)
     {
         $user = Auth::user();
+        $product = Product::findOrFail($request->product_id);
+        $quantity = (int) $request->quantity;
+
+        // Validasi lagi sebelum buat order
+        if ($quantity > $product->stock) {
+            return redirect()->back()->with('error', 'Stok tidak mencukupi.');
+        }
 
         // Simpan order
         $order = Order::create([
             'user_id' => $user->id,
-            'total_price' => $request->price * $request->quantity,
+            'total_price' => $product->price * $quantity,
             'status' => 'pending',
         ]);
 
         // Simpan item order
         OrderItem::create([
             'order_id' => $order->id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
+            'product_id' => $product->id,
+            'quantity' => $quantity,
+            'price' => $product->price,
         ]);
 
-        // Simpan pembayaran dengan status "pending"
+        // Kurangi stok produk
+        $product->decrement('stock', $quantity);
+
+        // Simpan pembayaran
         $payment = Payment::create([
             'order_id' => $order->id,
             'reference' => 'INV-' . uniqid(),
@@ -38,7 +49,25 @@ class CheckoutController extends Controller
             'status' => 'pending',
         ]);
 
-        // Arahkan ke halaman payment (bisa kirim data QR dari BCA API nanti)
         return redirect()->route('payment.page', ['order_id' => $order->id]);
+
     }
+
+    public function showCheckoutForm(Request $request)
+    {
+        $product = Product::findOrFail($request->product_id);
+        $quantity = (int) $request->quantity;
+
+        if ($quantity < 1) {
+            return redirect()->back()->with('error', 'Jumlah tidak boleh kurang dari 1.');
+        }
+
+        if ($quantity > $product->stock) {
+            return redirect()->back()->with('error', 'Jumlah melebihi stok yang tersedia.');
+        }
+
+        return view('checkout.index', compact('product', 'quantity'));
+    }
+
+
 }

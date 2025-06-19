@@ -7,7 +7,8 @@
   <title>Detail Produk</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3//assets/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3//assets/css/all.min.css"
+    rel="stylesheet" />
   <link href="/assets/css/tiny-slider.css" rel="stylesheet" />
   <link href="/assets/css/style.css" rel="stylesheet" />
   <style>
@@ -60,46 +61,46 @@
 
       @auth
       <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/') }}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
-        </li>
-        <li class="nav-item">
-          @if(Auth::user()->role === 'admin')
-          <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
-          @else
-          <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
-          @endif
-        </li>
-        <li class="nav-item">
-          <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
-            <b>Welcome, {{ Auth::user()->name }}</b>
-          </span>
-        </li>
-        <li class="nav-item">
-          <form action="{{ route('logout') }}" method="POST" class="d-inline">
-            @csrf
-            <button class="btn btn-link nav-link" type="submit">Logout</button>
-          </form>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('/') }}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('/productint') }}">Indoor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('/productext') }}">Outdoor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
+      </li>
+      <li class="nav-item">
+        @if(Auth::user()->role === 'admin')
+      <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
+      @else
+      <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
+      @endif
+      </li>
+      <li class="nav-item">
+        <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
+        <b>Welcome, {{ Auth::user()->name }}</b>
+        </span>
+      </li>
+      <li class="nav-item">
+        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+        @csrf
+        <button class="btn btn-link nav-link" type="submit">Logout</button>
+        </form>
+      </li>
       </ul>
-      @endauth
+    @endauth
 
       @guest
       <ul>
-        <li>
-          <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
-        </li>
+      <li>
+        <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
+      </li>
       </ul>
-      @endguest
+    @endguest
     </div>
   </nav>
   <!-- End Header/Navigation -->
@@ -129,31 +130,30 @@
 
         <!-- Tombol keranjang -->
         <div class="mb-4">
-            @auth
-              @if(Auth::user()->role === 'customer')
-                <form action="{{ route('checkout.process') }}" method="POST">
-                  @csrf
-                  <input type="hidden" name="product_id" value="{{ $product->id }}">
-                  <input type="hidden" name="price" value="{{ $product->price }}">
-                  <input type="hidden" id="quantity-hidden" name="quantity" value="1">
-                  <button class="btn btn-dark w-100">Buy Now</button>
-                </form>
-              @else
-                <button class="btn btn-secondary w-100" disabled>Only customers can buy</button>
-              @endif
-            @else
-              <button id="guestBuyNow" class="btn btn-dark w-100">Buy Now</button>
-            @endauth
-          </div>
+          @auth
+          @if(Auth::user()->role === 'customer')
+        <form action="{{ route('checkout') }}" method="GET">
+        @csrf
+        <input type="hidden" name="product_id" value="{{ $product->id }}">
+        <input type="hidden" name="quantity" id="hidden-quantity" value="1">
+        <button type="submit" class="btn btn-dark w-100">Buy Now</button>
+        </form>
+        @else
+        <button class="btn btn-secondary w-100" disabled>Only customers can buy</button>
+        @endif
+      @else
+        <button id="guestBuyNow" class="btn btn-dark w-100">Buy Now</button>
+      @endauth
+        </div>
 
-          @guest
-          <script>
-            document.getElementById('guestBuyNow').addEventListener('click', function () {
-              alert("Anda harus login sebagai customer untuk membeli produk.");
-              window.location.href = "{{ route('login') }}";
-            });
-          </script>
-          @endguest
+        @guest
+      <script>
+        document.getElementById('guestBuyNow').addEventListener('click', function () {
+        alert("Anda harus login sebagai customer untuk membeli produk.");
+        window.location.href = "{{ route('login') }}";
+        });
+      </script>
+    @endguest
 
         <!-- Accordion untuk info tambahan -->
         <div class="accordion" id="productDetailsAccordion">
@@ -208,11 +208,41 @@
 
     // Guest Buy Now alert and redirect
     @guest
-    document.getElementById('guestBuyNow').addEventListener('click', function() {
+    document.getElementById('guestBuyNow').addEventListener('click', function () {
       alert("Anda tidak bisa melakukan pembelian karena anda belum melakukan login.");
       window.location.href = "{{ route('login') }}";
     });
-    @endguest
+  @endguest
+  </script>
+
+  <script>
+  const quantityInput = document.getElementById('quantity-input');
+    const hiddenQuantity = document.getElementById('hidden-quantity');
+
+    function updateHiddenQuantity() {
+      hiddenQuantity.value = quantityInput.value;
+    }
+
+    document.getElementById('btn-plus').addEventListener('click', () => {
+      const stock = parseInt({{ $product->stock }});
+      let value = parseInt(quantityInput.value);
+      if (value < stock) {
+        quantityInput.value = value + 1;
+        updateHiddenQuantity();
+      } else {
+        alert("Jumlah melebihi stok.");
+      }
+    });
+
+    document.getElementById('btn-minus').addEventListener('click', () => {
+      let value = parseInt(quantityInput.value);
+      if (value > 1) {
+        quantityInput.value = value - 1;
+        updateHiddenQuantity();
+      }
+    });
+
+    updateHiddenQuantity(); // Inisialisasi saat halaman pertama kali dimuat
   </script>
 </body>
 
