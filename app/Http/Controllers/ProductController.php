@@ -24,17 +24,33 @@ class ProductController extends Controller
     // Membuat produk baru
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'required|string',
+                'price' => 'required|numeric',
+                'stock' => 'required|integer',
+                'category_id' => 'required|exists:categories,id',
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ]);
 
-        $product = Product::create($validated);
+            $imageName = time() . '.' . $request->image->extension();
+            $targetFolder = $request->category_id == 1 ? 'in' : 'out';
+            $request->image->move(public_path("assets/images/$targetFolder"), $imageName);
 
-        return response()->json($product, 201);
+            Product::create([
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'price' => $validated['price'],
+                'stock' => $validated['stock'],
+                'category_id' => $validated['category_id'],
+                'image_url' => "/assets/images/$targetFolder/" . $imageName,
+            ]);
+
+            return redirect()->back()->with('success', 'Product berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     // Mengupdate produk berdasarkan ID
@@ -52,7 +68,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         return redirect()->back()->with('success', 'Produk berhasil diperbarui.');
-        
+
     }
 
     // Menghapus produk berdasarkan ID

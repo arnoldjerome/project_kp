@@ -67,3 +67,6 @@ Route::post('/customrequests/{id}/approve', [CustomRequestController::class, 'up
 
 Route::middleware(['auth'])->put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
 
+Route::post('/products', [ProductController::class, 'store'])->middleware('auth')->name('products.store');
+
+
