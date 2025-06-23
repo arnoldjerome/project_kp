@@ -53,7 +53,9 @@ Route::get('/invoice', function () {
     $user = Auth::user();
     $orders = \App\Models\Order::with(['items.product', 'payment'])
         ->where('user_id', $user->id)
-        ->whereHas('payment')
+        ->whereHas('payment', function ($query) {
+            $query->where('status', ['pending','paid']);
+        })
         ->get();
     return view('invoice.index', compact('orders'));
 })->middleware('auth')->name('invoice.index');

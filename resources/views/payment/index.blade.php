@@ -61,23 +61,31 @@
             <p class="mt-2 text-muted">Gunakan aplikasi e-wallet / m-banking untuk menyelesaikan pembayaran</p>
         </div>
 
-        @if($order->payment->status === 'pending')
-            <form action="{{ route('payment.confirm', $order->payment->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="status" value="paid">
-                <button type="submit" class="btn btn-success w-100">Saya Sudah Bayar</button>
-            </form>
-
-        @else
+        @if($order->payment->status === 'paid')
             <div class="alert alert-success text-center">
                 Pembayaran sudah dikonfirmasi. Terima kasih!
             </div>
-
             <div class="text-center mt-3">
                 <a href="{{ url('/') }}" class="btn btn-outline-dark">Back to Home</a>
             </div>
+
+        @elseif($order->payment->status === 'pending')
+            <div class="alert alert-warning text-center">
+                Pembayaran Anda sedang dikonfirmasi.
+            </div>
+            <div class="text-center mt-3">
+                <a href="{{ url('/') }}" class="btn btn-outline-dark">Back to Home</a>
+            </div>
+
+        @elseif($order->payment->status === 'unpaid')
+            <form action="{{ route('payment.confirm', $order->payment->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="status" value="pending">
+                <button type="submit" class="btn btn-success w-100">Saya Sudah Bayar</button>
+            </form>
         @endif
+
     </div>
 
     <footer class="bg-light py-4 mt-5">
