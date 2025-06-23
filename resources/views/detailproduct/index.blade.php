@@ -133,7 +133,6 @@
           @auth
           @if(Auth::user()->role === 'customer')
         <form action="{{ route('checkout') }}" method="GET" onsubmit="updateHiddenQuantity()">
-            >
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="quantity" id="hidden-quantity" value="1">
