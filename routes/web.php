@@ -61,3 +61,7 @@ Route::get('/invoice', function () {
 // Admin Custom Request
 Route::get('/customrequests', [CustomRequestController::class, 'index'])->name('customrequests.index');
 Route::post('/customrequests/{id}/approve', [CustomRequestController::class, 'updateStatus'])->name('customrequests.approve');
+
+
+Route::middleware(['auth'])->put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+

@@ -51,7 +51,8 @@ class ProductController extends Controller
 
         $product->update($validated);
 
-        return response()->json($product);
+        return redirect()->back()->with('success', 'Produk berhasil diperbarui.');
+        
     }
 
     // Menghapus produk berdasarkan ID
