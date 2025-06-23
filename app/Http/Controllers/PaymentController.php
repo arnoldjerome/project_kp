@@ -31,6 +31,16 @@ class PaymentController extends Controller
         $payment->paid_at = now();
         $payment->save();
 
-        return response()->json($payment);
+        if ($payment->status === 'paid') {
+            $order = $payment->order;
+
+            foreach ($order->items as $item) {
+                $product = $item->product;
+                $product->decrement('stock', $item->quantity);
+            }
+        }
+
+        return redirect()->route('payment.page', ['order_id' => $payment->order_id])
+            ->with('success', 'Pembayaran anda akan segera dikonfirmasi.');
     }
 }

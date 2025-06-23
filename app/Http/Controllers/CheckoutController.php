@@ -37,9 +37,6 @@ class CheckoutController extends Controller
             'price' => $product->price,
         ]);
 
-        // Kurangi stok produk
-        $product->decrement('stock', $quantity);
-
         // Simpan pembayaran
         $payment = Payment::create([
             'order_id' => $order->id,

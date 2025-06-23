@@ -132,7 +132,8 @@
         <div class="mb-4">
           @auth
           @if(Auth::user()->role === 'customer')
-        <form action="{{ route('checkout') }}" method="GET">
+        <form action="{{ route('checkout') }}" method="GET" onsubmit="updateHiddenQuantity()">
+            >
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="quantity" id="hidden-quantity" value="1">
@@ -191,21 +192,6 @@
   <!-- Script Bootstrap dan JS Button Logic -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Quantity buttons logic
-    document.getElementById('btn-minus').addEventListener('click', () => {
-      const input = document.getElementById('quantity-input');
-      let value = parseInt(input.value);
-      if (value > 1) {
-        input.value = value - 1;
-      }
-    });
-
-    document.getElementById('btn-plus').addEventListener('click', () => {
-      const input = document.getElementById('quantity-input');
-      let value = parseInt(input.value);
-      input.value = value + 1;
-    });
-
     // Guest Buy Now alert and redirect
     @guest
     document.getElementById('guestBuyNow').addEventListener('click', function () {
@@ -215,16 +201,16 @@
   @endguest
   </script>
 
-  <script>
-  const quantityInput = document.getElementById('quantity-input');
+<script>
+    const quantityInput = document.getElementById('quantity-input');
     const hiddenQuantity = document.getElementById('hidden-quantity');
+    const stock = parseInt({{ $product->stock }});
 
     function updateHiddenQuantity() {
       hiddenQuantity.value = quantityInput.value;
     }
 
     document.getElementById('btn-plus').addEventListener('click', () => {
-      const stock = parseInt({{ $product->stock }});
       let value = parseInt(quantityInput.value);
       if (value < stock) {
         quantityInput.value = value + 1;
@@ -242,8 +228,9 @@
       }
     });
 
-    updateHiddenQuantity(); // Inisialisasi saat halaman pertama kali dimuat
-  </script>
+    // Inisialisasi nilai hidden quantity saat pertama kali
+    updateHiddenQuantity();
+    </script>
 </body>
 
 </html>
