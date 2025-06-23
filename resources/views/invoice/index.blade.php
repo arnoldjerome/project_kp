@@ -83,49 +83,43 @@
     </div>
 
     <!-- Invoice Section -->
-    @section('content')
-        <div class="hero" style="background-color: #aa9a81;">
-            <div class="container py-4">
-                <h1 class="text-white">Invoices</h1>
+    <div class="container py-5">
+        @if($orders->isEmpty())
+            <div class="alert alert-info text-center">
+                You don't have any payments yet.
             </div>
-        </div>
-
-        <div class="container py-5">
-            @if($orders->isEmpty())
-                <div class="alert alert-info text-center">
-                    You don't have any payments yet.
-                </div>
-            @else
-                <div class="row">
-                    @foreach($orders as $order)
-                        <div class="col-md-6 mb-4">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-header bg-dark text-white">
-                                    <strong>Invoice: {{ $order->payment->reference }}</strong>
-                                </div>
-                                <div class="card-body">
-                                    <p><strong>Status:</strong> {{ ucfirst($order->payment->status) }}</p>
-                                    <p><strong>Total:</strong> Rp {{ number_format($order->total_price, 0, ',', '.') }}</p>
-                                    <hr>
-                                    <h6 class="fw-bold">Items:</h6>
-                                    <ul class="list-group list-group-flush mb-3">
-                                        @foreach($order->items as $item)
-                                            <li class="list-group-item d-flex justify-content-between">
-                                                {{ $item->product->name }} x {{ $item->quantity }}
-                                                <span>Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <a href="{{ route('payment.page', $order->id) }}" class="btn btn-outline-dark w-100">View
-                                        Payment</a>
-                                </div>
+        @else
+            <div class="row">
+                @foreach($orders as $order)
+                    <div class="col-md-6 mb-4">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-dark text-white">
+                                <strong>Invoice: {{ $order->payment->reference }}</strong>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Status:</strong> {{ ucfirst($order->payment->status) }}</p>
+                                <p><strong>Total:</strong> Rp {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                                <hr>
+                                <h6 class="fw-bold">Items:</h6>
+                                <ul class="list-group list-group-flush mb-3">
+                                    @foreach($order->items as $item)
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            {{ $item->product->name }} x {{ $item->quantity }}
+                                            <span>Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <a href="{{ route('payment.page', $order->id) }}" class="btn btn-outline-dark w-100">
+                                    View Payment
+                                </a>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-            @endif
-        </div>
-    @endsection
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
 
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/custom.js"></script>

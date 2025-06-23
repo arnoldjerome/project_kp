@@ -18,7 +18,7 @@ class PaymentController extends Controller
             'reference' => 'INV-' . uniqid(),
             'method' => $request->method,
             'amount' => $order->total_price,
-            'status' => 'pending',
+            'status' => 'unpaid',
         ]);
 
         return response()->json($payment);
@@ -31,16 +31,24 @@ class PaymentController extends Controller
         $payment->paid_at = now();
         $payment->save();
 
-        if ($payment->status === 'paid') {
-            $order = $payment->order;
+        $order = $payment->order;
 
+        if ($request->status === 'paid') {
+            // Jika pembayaran berhasil dikonfirmasi
             foreach ($order->items as $item) {
                 $product = $item->product;
                 $product->decrement('stock', $item->quantity);
             }
+
+            $order->status = 'paid';
+        } elseif ($request->status === 'pending') {
+            // Jika baru klik "Saya Sudah Bayar"
+            $order->status = 'pending';
         }
 
-        return redirect()->route('payment.page', ['order_id' => $payment->order_id])
+        $order->save();
+
+        return redirect()->route('payment.page', ['order_id' => $order->id])
             ->with('success', 'Pembayaran anda akan segera dikonfirmasi.');
     }
 }

@@ -26,7 +26,7 @@ class CheckoutController extends Controller
         $order = Order::create([
             'user_id' => $user->id,
             'total_price' => $product->price * $quantity,
-            'status' => 'pending',
+            'status' => 'unpaid',
         ]);
 
         // Simpan item order
@@ -43,7 +43,7 @@ class CheckoutController extends Controller
             'reference' => 'INV-' . uniqid(),
             'method' => 'bca_qris',
             'amount' => $order->total_price,
-            'status' => 'pending',
+            'status' => 'unpaid',
         ]);
 
         return redirect()->route('payment.page', ['order_id' => $order->id]);
