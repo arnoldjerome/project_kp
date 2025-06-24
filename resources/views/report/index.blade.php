@@ -23,14 +23,19 @@
         rel="stylesheet">
     <link href="/assets/css/tiny-slider.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
-    <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+    <title>BCS - BALI CIPTA SARANA</title>
 </head>
 
 <body>
 
     <!-- Start Header/Navigation -->
-    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
         <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/images/bcs.png" alt="Logo" style="height: 80px;">
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,13 +56,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
                         </li>
-                        <li class="nav-item">
-                            @if(Auth::user()->role === 'admin')
+                        @if(Auth::user()->role === 'admin')
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
-                            @else
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('report.index') }}">Report</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
-                            @endif
-                        </li>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
                                 <b>Welcome, {{ Auth::user()->name }}</b>
@@ -79,171 +89,104 @@
                 @endguest
             </div>
         </div>
+
     </nav>
     <!-- End Header/Navigation -->
 
-    <div class="d-flex h-100">
 
-        <!-- Sidebar with list of chats -->
-        <div style="width: 300px; border-right: 1px solid #ddd;">
-            <input id="chatSearch" class="form-control m-2" placeholder="Search or start a new chat"
-                oninput="filterChats()" />
-            <ul class="list-group" id="chatList" style="height: calc(100vh - 60px); overflow-y: auto;"></ul>
-        </div>
+    <div class="container py-5">
+        <h1 class="mb-5 text-center">Laporan Ringkasan Penjualan</h1>
 
-        <!-- Main chat area -->
-        <div class="flex-fill d-flex flex-column">
-            <div id="chatMessages"></div>
-            <div class="p-3 border-top d-flex align-items-center gap-2">
-                <button class="btn btn-outline-primary btn-sm"
-                    onclick="sendTemplateMessage('Apakah ada yang bisa kami bantu?')">Template 1</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="openCustomRequestModal()">Custom
-                    Request</button>
-                <button class="btn btn-outline-danger btn-sm"
-                    onclick="sendTemplateMessage('Baik, apabila sudah selesai, maka kami izin mengakhiri sesi kali ini. Apabila ada kendala silahkan langsung hubungi kami kembali.')">Template
-                    3</button>
-                <input id="messageInput" type="text" class="form-control" placeholder="Type a message" />
-                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Modal for Custom Request -->
-    <div class="modal fade" id="customRequestModal" tabindex="-1" aria-labelledby="customRequestModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Custom Requests</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        {{-- Statistik Ringkas --}}
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Orders</h5>
+                        <p class="card-text fs-3">{{ $totalOrders }}</p>
+                    </div>
                 </div>
-                <div class="modal-body" id="customRequestList">
-                    <!-- Load your custom requests here -->
-                    <p>Daftar Custom Request placeholder (load via API)</p>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Revenue</h5>
+                        <p class="card-text fs-3">Rp{{ number_format($totalRevenue, 0, ',', '.') }}</p>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{-- Grafik Order Berdasarkan Status --}}
+        <div class="mb-5">
+            <h4 class="mb-3">Visualisasi Orders Berdasarkan Status</h4>
+            <img src="/assets/images/grafikgrafik.png" alt="Grafik Order" class="img-fluid rounded shadow">
+        </div>
+
+        {{-- Orders Berdasarkan Status dalam List --}}
+        <div class="mb-5">
+            <h4>Ringkasan Orders by Status</h4>
+            <ul class="list-group">
+                @foreach ($ordersByStatus as $order)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ ucfirst($order->status) }}
+                        <span class="badge bg-primary rounded-pill">{{ $order->count }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+        {{-- Tabel Top Customer --}}
+        <div class="mb-5">
+            <h4>Top Customers</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nama</th>
+                            <th>Jumlah Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($topCustomers as $customer)
+                            <tr>
+                                <td>{{ $customer->name }}</td>
+                                <td>{{ $customer->orders_count }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{-- Tabel Custom Requests --}}
+        <div class="mb-5">
+            <h4>5 Custom Requests Terakhir</h4>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Nama</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($customRequests as $req)
+                            <tr>
+                                <td>{{ $req->name }}</td>
+                                <td>{{ $req->created_at->format('d M Y') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        let allChats = [];
-        let currentChatId = null;
-
-        async function loadChats() {
-            try {
-                const res = await fetch('/api/admin/chats');
-                const chats = await res.json();
-                allChats = chats;
-                renderChatList(chats);
-            } catch (err) {
-                console.error('Failed to load chats', err);
-            }
-        }
-
-        function renderChatList(chats) {
-            const chatList = document.getElementById('chatList');
-            chatList.innerHTML = '';
-            chats.forEach(chat => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
-                li.style.cursor = 'pointer';
-                li.innerHTML = `
-              <div>
-                <strong>${chat.user_name}</strong><br/>
-                <small class="text-truncate" style="max-width: 180px;">${chat.latest_message}</small>
-              </div>
-              <small>${chat.last_timestamp}</small>
-            `;
-                li.onclick = () => selectChat(chat.chat_id, li);
-                chatList.appendChild(li);
-            });
-        }
-
-        // Search filter
-        function filterChats() {
-            const val = document.getElementById('chatSearch').value.toLowerCase();
-            renderChatList(allChats.filter(c => c.user_name.toLowerCase().includes(val)));
-        }
-
-        async function selectChat(chatId, selectedLi) {
-            currentChatId = chatId;
-            // Remove 'active' from previous
-            document.querySelectorAll('#chatList li').forEach(li => li.classList.remove('active'));
-            if (selectedLi) selectedLi.classList.add('active');
-
-            try {
-                const res = await fetch(`/api/admin/chats/${chatId}`);
-                const messages = await res.json();
-                renderMessages(messages);
-            } catch (err) {
-                console.error('Failed to load messages', err);
-            }
-        }
-
-        function renderMessages(messages) {
-            const container = document.getElementById('chatMessages');
-            container.innerHTML = '';
-            messages.forEach(msg => {
-                const div = document.createElement('div');
-                div.style.marginBottom = '10px';
-                if (msg.sender === 'admin') {
-                    div.style.textAlign = 'right';
-                    div.innerHTML = `<span class="msg-admin">${msg.message}</span>`;
-                } else {
-                    div.style.textAlign = 'left';
-                    div.innerHTML = `<span class="msg-user">${msg.message}</span>`;
-                }
-                container.appendChild(div);
-            });
-            container.scrollTop = container.scrollHeight; // scroll to bottom
-        }
-
-        async function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const text = input.value.trim();
-            if (!text || !currentChatId) return alert('Pilih chat dan isi pesan terlebih dahulu');
-            try {
-                const res = await fetch(`/api/admin/chats/${currentChatId}/send`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ sender: 'admin', message: text })
-                });
-                if (res.ok) {
-                    input.value = '';
-                    selectChat(currentChatId); // reload messages
-                    loadChats(); // reload sidebar for preview update
-                } else {
-                    alert('Gagal mengirim pesan');
-                }
-            } catch (err) {
-                alert('Error dalam pengiriman pesan');
-            }
-        }
-
-        function sendTemplateMessage(text) {
-            document.getElementById('messageInput').value = text;
-            sendMessage();
-        }
-
-        // Placeholder modal open
-        function openCustomRequestModal() {
-            const modalEl = document.getElementById('customRequestModal');
-            const modalInstance = new bootstrap.Modal(modalEl);
-            modalInstance.show();
-        }
-
-        // Load chats on page load
-        window.onload = loadChats;
-
-    </script>
-
 
 
 
     <!-- Start Footer Section -->
-    < footer class="footer-section">
+    <footer class="footer-section">
         <div class="container relative">
 
             <div class="sofa-img">
@@ -294,7 +237,7 @@
                     <div class="row links-wrap">
                         <div class="col-6 col-sm-6 col-md-3">
                             <ul class="list-unstyled">
-                                <li><a href="#">Chat</a></li>
+                                <li><a href="#">About us</a></li>
                                 <li><a href="#">Services</a></li>
                                 <li><a href="#">Blog</a></li>
                                 <li><a href="#">Contact us</a></li>
@@ -334,10 +277,9 @@
                 <div class="row pt-4">
                     <div class="col-lg-6">
                         <p class="mb-2 text-center text-lg-start">Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script>
-                            . All Rights Reserved. &mdash; Designed with love by <a
-                                href="https://untree.co">Untree.co</a> Distributed By <a
-                                hreff="https://themewagon.com">ThemeWagon</a>
+                            <script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash;
+                            Designed with love by <a href="https://untree.co">Untree.co</a> Distributed By <a
+                                href="https://themewagon.com">ThemeWagon</a>
                             <!-- License information: https://untree.co/license/ -->
                         </p>
                     </div>
@@ -353,13 +295,16 @@
             </div>
 
         </div>
-        </footer>
-        <!-- End Footer Section -->
+    </footer>
+    <!-- End Footer Section -->
 
 
-        <script src="/assets/js/bootstrap.bundle.min./assets/js"></script>
-        <script src="/assets/js/tiny-slider./assets/js"></script>
-        <script src="/assets/js/custom.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/tiny-slider.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+
+
 </body>
 
 </html>

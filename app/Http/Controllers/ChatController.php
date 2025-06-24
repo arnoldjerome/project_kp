@@ -20,19 +20,6 @@ class ChatController extends Controller
         return response()->json($chat);
     }
 
-    public function sendMessage($chat_id, Request $request)
-    {
-        // Kirim pesan baru dalam chat
-        $message = Message::create([
-            'chat_id' => $chat_id,
-            'sender' => $request->sender,
-            'message' => $request->message,
-            'timestamp' => now(),
-        ]);
-
-        return response()->json($message);
-    }
-
     public function endChat($id)
     {
         // Akhiri chat
@@ -41,5 +28,43 @@ class ChatController extends Controller
         $chat->save();
 
         return response()->json($chat);
+    }
+    // ChatController.php
+    public function getChatsForAdmin()
+    {
+        // Mengambil list chat dengan user, latest message dan unread count jika ada
+        $chats = Chat::with(['user', 'messages' => function ($q) {
+            $q->latest()->limit(1);
+        }])->get();
+
+        // Tambah field preview message dan last_timestamp
+        $data = $chats->map(function ($chat) {
+            $latestMessage = $chat->messages->first();
+            return [
+                'chat_id' => $chat->id,
+                'user_name' => $chat->user->name,
+                'user_avatar' => '/public/assets/images/bcs.png',
+                'latest_message' => $latestMessage ? $latestMessage->message : '',
+                'last_timestamp' => $latestMessage ? $latestMessage->created_at->format('m/d/Y H:i') : '',
+            ];
+        });
+
+        return response()->json($data);
+    }
+
+    public function getChatMessages(Chat $chat)
+    {
+        $messages = $chat->messages()->with('sender')->orderBy('created_at')->get();
+        return response()->json($messages);
+    }
+
+    public function sendMessageFromAdmin(Request $request, Chat $chat)
+    {
+        $message = $chat->messages()->create([
+            'sender' => 'admin',
+            'message' => $request->input('message'),
+            'timestamp' => now(),
+        ]);
+        return response()->json($message);
     }
 }

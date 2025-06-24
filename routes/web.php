@@ -8,6 +8,8 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CustomRequestController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ReportController;
 
 // Landing & Pages
 Route::get('/', [WelcomeController::class, 'index']);
@@ -69,4 +71,14 @@ Route::middleware(['auth'])->put('/products/{product}', [ProductController::clas
 
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth')->name('products.store');
 
+// routes/api.php
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/admin/chats', [ChatController::class, 'getChatsForAdmin']);
+    Route::get('/admin/chats/{chat}', [ChatController::class, 'getChatMessages']);
+    Route::post('/admin/chats/{chat}/messages', [ChatController::class, 'sendMessageFromAdmin']);
+    Route::get('/admin/custom-requests', [CustomRequestController::class, 'getCustomRequests']);
+});
 
+Route::get('/report', [ReportController::class, 'index'])
+->middleware(['auth'])
+->name('report.index');
