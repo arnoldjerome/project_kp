@@ -57,7 +57,7 @@
 
         <div class="text-center mb-4">
             <h5>Scan QRIS BCA untuk Membayar</h5>
-            <img src="{{ asset('assets/images/qris-dummy.png') }}" alt="QRIS" style="width: 250px;">
+            <img src="{{ asset('assets/images/qris.jpg') }}" alt="QRIS" style="width: 500px;">
             <p class="mt-2 text-muted">Gunakan aplikasi e-wallet / m-banking untuk menyelesaikan pembayaran</p>
         </div>
 

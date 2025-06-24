@@ -185,9 +185,9 @@
                     <p><a href="{{ url('/productext') }}" class="btn">See More</a></p>
 
                     @if (count($outdoorProducts) > 0)
-                        <a class="product-item d-block" href="{{ url('detailproduct/' . $indoorProducts[0]->id) }}" style="padding-top: 82px;">
+                        <a class="product-item d-block" href="{{ url('detailproduct/' . $outdoorProducts[0]->id) }}" style="padding-top: 82px;">
                             <img src="{{ $outdoorProducts[0]->image_url }}" class="img-fluid product-thumbnail">
-                            <h3 class="product-title">{{ $indoorProducts[0]->name }}</h3>
+                            <h3 class="product-title">{{ $outdoorProducts[0]->name }}</h3>
                             <strong
                                 class="product-price">{{ number_format($outdoorProducts[0]->price, 0, ',', '.') }}</strong>
                             <span class="icon-cross">
@@ -199,7 +199,7 @@
                 <!-- End Column 1 -->
                 <div class="col-md-12 col-lg-9">
                     <div class="row">
-                        @foreach ($indoorProducts->slice(1) as $product)
+                        @foreach ($outdoorProducts->slice(1) as $product)
                             <div class="col-12 col-md-6 col-lg-4 mb-5">
                                 <a class="product-item" href="{{ url('detailproduct/' . $product->id) }}">
                                     <img src="{{ $product->image_url }}" class="img-fluid product-thumbnail">
