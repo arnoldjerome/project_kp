@@ -54,18 +54,21 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
-                        </li>
-                        @if(Auth::user()->role === 'admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
+                            @if(Auth::user()->role === 'admin')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/report') }}">Report</a>
+                                </li>
                             @else
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
                             </li>
                         @endif
-                        <li class="nav-item">
-                            <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
-                                <b>Welcome, {{ Auth::user()->name }}</b>
-                            </span>
+                        <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
+                            <b>Welcome, {{ Auth::user()->name }}</b>
+                        </span>
                         </li>
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">

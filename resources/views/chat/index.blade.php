@@ -54,7 +54,12 @@
                         @if(Auth::user()->role === 'admin')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
-                            @else
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/report') }}">Report</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
                             </li>
                         @endif
