@@ -24,6 +24,18 @@
     <link href="/assets/css/tiny-slider.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <title>BCS - BALI CIPTA SARANA</title>
+    <style>
+        .chart-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -96,6 +108,9 @@
 
     <div class="container py-5">
         <h1 class="mb-5 text-center">Laporan Ringkasan Penjualan</h1>
+        <a href="{{ route('report.download') }}" class="btn btn-danger mb-3">
+            <i class="fa fa-print"></i> Cetak PDF
+        </a>
 
         {{-- Statistik Ringkas --}}
         <div class="row mb-4">
@@ -120,7 +135,9 @@
         {{-- Grafik Order Berdasarkan Status --}}
         <div class="mb-5">
             <h4 class="mb-3">Visualisasi Orders Berdasarkan Status</h4>
-            <img src="/assets/images/grafikgrafik.png" alt="Grafik Order" class="img-fluid rounded shadow">
+            <div class="chart-container">
+                <canvas id="orderChart"></canvas>
+            </div>
         </div>
 
         {{-- Orders Berdasarkan Status dalam List --}}
@@ -303,7 +320,37 @@
     <script src="/assets/js/tiny-slider.js"></script>
     <script src="/assets/js/custom.js"></script>
 
+    <!-- Harus di atas sebelum dipakai -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script>
+        const labels = {!! json_encode($ordersByStatus->pluck('status')) !!};
+        const dataCounts = {!! json_encode($ordersByStatus->pluck('count')) !!};
+
+        const ctx = document.getElementById('orderChart').getContext('2d');
+        const orderChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah Order',
+                    data: dataCounts,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderColor: 'white',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
 
 </body>
 

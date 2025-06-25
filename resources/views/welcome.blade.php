@@ -59,13 +59,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
                         </li>
-                        <li class="nav-item">
-                            @if(Auth::user()->role === 'admin')
+                        @if(Auth::user()->role === 'admin')
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
-                            @else
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/report') }}">Report</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
-                            @endif
-                        </li>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
                                 <b>Welcome, {{ Auth::user()->name }}</b>
@@ -133,7 +138,8 @@
                     <p><a href="{{ url('/productint') }}" class="btn">See More</a></p>
 
                     @if(count($indoorProducts) > 0)
-                        <a class="product-item d-block" href="{{ url('detailproduct/' . $indoorProducts[0]->id) }}" style="padding-top: 82px;">
+                        <a class="product-item d-block" href="{{ url('detailproduct/' . $indoorProducts[0]->id) }}"
+                            style="padding-top: 82px;">
                             <img src="{{ $indoorProducts[0]->image_url }}" class="img-fluid product-thumbnail">
                             <h3 class="product-title">{{ $indoorProducts[0]->name }}</h3>
                             <strong
@@ -185,7 +191,8 @@
                     <p><a href="{{ url('/productext') }}" class="btn">See More</a></p>
 
                     @if (count($outdoorProducts) > 0)
-                        <a class="product-item d-block" href="{{ url('detailproduct/' . $outdoorProducts[0]->id) }}" style="padding-top: 82px;">
+                        <a class="product-item d-block" href="{{ url('detailproduct/' . $outdoorProducts[0]->id) }}"
+                            style="padding-top: 82px;">
                             <img src="{{ $outdoorProducts[0]->image_url }}" class="img-fluid product-thumbnail">
                             <h3 class="product-title">{{ $outdoorProducts[0]->name }}</h3>
                             <strong

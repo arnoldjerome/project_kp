@@ -61,7 +61,7 @@
                                 <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('report.index') }}">Report</a>
+                                <a class="nav-link" href="{{ url('/report') }}">Report</a>
                             </li>
                         @else
                             <li class="nav-item">

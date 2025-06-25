@@ -22,7 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="assets/css/tiny-slider.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
-    <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+    <title>BCS - BALI CIPTA SARANA </title>
 </head>
 
 <body>
@@ -55,13 +55,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/chat') }}">Chat</a>
                         </li>
-                        <li class="nav-item">
-                            @if(Auth::user()->role === 'admin')
+                        @if(Auth::user()->role === 'admin')
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/customrequests') }}">Custom Request</a>
-                            @else
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/report') }}">Report</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
-                            @endif
-                        </li>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <span class="nav-link disabled" style="cursor: default; color: #ffffff; font-weight: 500;">
                                 <b>Welcome, {{ Auth::user()->name }}</b>
@@ -97,11 +102,11 @@
                         <p class="mb-4">View and manage all customer custom furniture requests.</p>
                     </div>
                 </div>
-                <div class="col-lg-7">
+                <!-- <div class="col-lg-7">
                     <div class="hero-img-wrap">
                         <img src="/assets/images/couch.png" class="img-fluid">
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
