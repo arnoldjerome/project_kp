@@ -24,6 +24,38 @@
     <link href="/assets/css/tiny-slider.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
     <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+    <style>
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f7f7f7;
+        }
+
+        .chat-bubble {
+            max-width: 75%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .chat-left {
+            background-color: #e4e6eb;
+            color: #000;
+            text-align: left;
+            border-bottom-left-radius: 0;
+        }
+
+        .chat-right {
+            background-color: #0d6efd;
+            color: #fff;
+            text-align: right;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -131,6 +163,11 @@
         </div>
     </div>
 
+
+
+    <script src="/assets/js/bootstrap.bundle.min./assets/js"></script>
+    <script src="/assets/js/tiny-slider./assets/js"></script>
+    <script src="/assets/js/custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let allChats = [];
@@ -148,23 +185,27 @@
         }
 
         function renderChatList(chats) {
+            console.log("CHAT LIST LOADED:", chats); // 👈 Tambahkan log ini
             const chatList = document.getElementById('chatList');
             chatList.innerHTML = '';
             chats.forEach(chat => {
+                console.log("Rendering chat:", chat); // 👈 Tambahkan log ini
                 const li = document.createElement('li');
                 li.className = 'list-group-item d-flex justify-content-between align-items-center';
                 li.style.cursor = 'pointer';
                 li.innerHTML = `
-              <div>
-                <strong>${chat.user_name}</strong><br/>
-                <small class="text-truncate" style="max-width: 180px;">${chat.latest_message}</small>
-              </div>
-              <small>${chat.last_timestamp}</small>
-            `;
+          <div>
+            <strong>${chat.user_name}</strong><br/>
+            <small class="text-truncate" style="max-width: 180px;">${chat.latest_message}</small>
+          </div>
+          <small>${chat.last_timestamp}</small>
+        `;
                 li.onclick = () => selectChat(chat.chat_id, li);
                 chatList.appendChild(li);
             });
         }
+
+
 
         // Search filter
         function filterChats() {
@@ -174,43 +215,51 @@
 
         async function selectChat(chatId, selectedLi) {
             currentChatId = chatId;
-            // Remove 'active' from previous
             document.querySelectorAll('#chatList li').forEach(li => li.classList.remove('active'));
             if (selectedLi) selectedLi.classList.add('active');
 
             try {
                 const res = await fetch(`/api/admin/chats/${chatId}`);
                 const messages = await res.json();
+                console.log("MESSAGES:", messages);
                 renderMessages(messages);
             } catch (err) {
                 console.error('Failed to load messages', err);
             }
         }
 
+
         function renderMessages(messages) {
             const container = document.getElementById('chatMessages');
             container.innerHTML = '';
             messages.forEach(msg => {
-                const div = document.createElement('div');
-                div.style.marginBottom = '10px';
+                const wrapper = document.createElement('div');
+                const bubble = document.createElement('div');
+
+                wrapper.className = 'd-flex';
                 if (msg.sender === 'admin') {
-                    div.style.textAlign = 'right';
-                    div.innerHTML = `<span class="msg-admin">${msg.message}</span>`;
+                    wrapper.classList.add('justify-content-end');
+                    bubble.className = 'chat-bubble chat-right';
                 } else {
-                    div.style.textAlign = 'left';
-                    div.innerHTML = `<span class="msg-user">${msg.message}</span>`;
+                    wrapper.classList.add('justify-content-start');
+                    bubble.className = 'chat-bubble chat-left';
                 }
-                container.appendChild(div);
+
+                bubble.innerText = msg.message;
+                wrapper.appendChild(bubble);
+                container.appendChild(wrapper);
             });
-            container.scrollTop = container.scrollHeight; // scroll to bottom
+
+            container.scrollTop = container.scrollHeight;
         }
+
 
         async function sendMessage() {
             const input = document.getElementById('messageInput');
             const text = input.value.trim();
             if (!text || !currentChatId) return alert('Pilih chat dan isi pesan terlebih dahulu');
             try {
-                const res = await fetch(`/api/admin/chats/${currentChatId}/send`, {
+                const res = await fetch(`/api/admin/chats/${currentChatId}/messages`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ sender: 'admin', message: text })
@@ -240,131 +289,14 @@
         }
 
         // Load chats on page load
-        window.onload = loadChats;
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("DOM loaded, loading chats...");
+            loadChats();
+        });
+
+
 
     </script>
-
-
-
-
-    <!-- Start Footer Section -->
-    < footer class="footer-section">
-        <div class="container relative">
-
-            <div class="sofa-img">
-                <img src="/assets/images/sofa.png" alt="Image" class="img-fluid">
-            </div>
-
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="subscription-form">
-                        <h3 class="d-flex align-items-center"><span class="me-1"><img
-                                    src="/assets/images/envelope-outline.svg" alt="Image"
-                                    class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
-
-                        <form action="#" class="row g-3">
-                            <div class="col-auto">
-                                <input type="text" class="form-control" placeholder="Enter your name">
-                            </div>
-                            <div class="col-auto">
-                                <input type="email" class="form-control" placeholder="Enter your email">
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-primary">
-                                    <span class="fa fa-paper-plane"></span>
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-5 mb-5">
-                <div class="col-lg-4">
-                    <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
-                    <p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus
-                        malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.
-                        Pellentesque habitant</p>
-
-                    <ul class="list-unstyled custom-social">
-                        <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-                        <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-                        <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-                        <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="row links-wrap">
-                        <div class="col-6 col-sm-6 col-md-3">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Chat</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Contact us</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="col-6 col-sm-6 col-md-3">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Support</a></li>
-                                <li><a href="#">Knowledge base</a></li>
-                                <li><a href="#">Live chat</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="col-6 col-sm-6 col-md-3">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Jobs</a></li>
-                                <li><a href="#">Our team</a></li>
-                                <li><a href="#">Leadership</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="col-6 col-sm-6 col-md-3">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Nordic Chair</a></li>
-                                <li><a href="#">Kruzo Aero</a></li>
-                                <li><a href="#">Ergonomic Chair</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="border-top copyright">
-                <div class="row pt-4">
-                    <div class="col-lg-6">
-                        <p class="mb-2 text-center text-lg-start">Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script>
-                            . All Rights Reserved. &mdash; Designed with love by <a
-                                href="https://untree.co">Untree.co</a> Distributed By <a
-                                hreff="https://themewagon.com">ThemeWagon</a>
-                            <!-- License information: https://untree.co/license/ -->
-                        </p>
-                    </div>
-
-                    <div class="col-lg-6 text-center text-lg-end">
-                        <ul class="list-unstyled d-inline-flex ms-auto">
-                            <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-        </footer>
-        <!-- End Footer Section -->
-
-
-        <script src="/assets/js/bootstrap.bundle.min./assets/js"></script>
-        <script src="/assets/js/tiny-slider./assets/js"></script>
-        <script src="/assets/js/custom.js"></script>
 </body>
 
 </html>

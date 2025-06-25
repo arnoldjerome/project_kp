@@ -53,10 +53,11 @@ class ChatController extends Controller
     }
 
     public function getChatMessages(Chat $chat)
-    {
-        $messages = $chat->messages()->with('sender')->orderBy('created_at')->get();
-        return response()->json($messages);
-    }
+{
+    $messages = $chat->messages()->orderBy('created_at')->get();
+
+    return response()->json($messages);
+}
 
     public function sendMessageFromAdmin(Request $request, Chat $chat)
     {

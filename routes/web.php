@@ -71,14 +71,6 @@ Route::middleware(['auth'])->put('/products/{product}', [ProductController::clas
 
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth')->name('products.store');
 
-// routes/api.php
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/admin/chats', [ChatController::class, 'getChatsForAdmin']);
-    Route::get('/admin/chats/{chat}', [ChatController::class, 'getChatMessages']);
-    Route::post('/admin/chats/{chat}/messages', [ChatController::class, 'sendMessageFromAdmin']);
-    Route::get('/admin/custom-requests', [CustomRequestController::class, 'getCustomRequests']);
-});
-
 Route::get('/report', [ReportController::class, 'index'])
 ->middleware(['auth'])
 ->name('report.index');
