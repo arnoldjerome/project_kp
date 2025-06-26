@@ -134,8 +134,7 @@
             <div class="p-3 border-top d-flex align-items-center gap-2">
                 <button class="btn btn-outline-primary btn-sm"
                     onclick="sendTemplateMessage('Apakah ada yang bisa kami bantu?')">Template 1</button>
-                <button class="btn btn-outline-secondary btn-sm" onclick="openCustomRequestModal()">Custom
-                    Request</button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="sendTemplateMessage('[custom_request_button]')">Custom Request</button>
                 <button class="btn btn-outline-danger btn-sm"
                     onclick="sendTemplateMessage('Baik, apabila sudah selesai, maka kami izin mengakhiri sesi kali ini. Apabila ada kendala silahkan langsung hubungi kami kembali.')">Template
                     3</button>
@@ -245,13 +244,20 @@
                     bubble.className = 'chat-bubble chat-left';
                 }
 
-                bubble.innerText = msg.message;
+                // Cek jika ini adalah tombol permintaan custom
+                if (msg.message === '[custom_request_button]') {
+                    bubble.innerHTML = `<button class="btn btn-warning btn-sm" onclick="openCustomRequestModal()">Buat Custom Request</button>`;
+                } else {
+                    bubble.innerText = msg.message;
+                }
+
                 wrapper.appendChild(bubble);
                 container.appendChild(wrapper);
             });
 
             container.scrollTop = container.scrollHeight;
         }
+
 
 
         async function sendMessage() {

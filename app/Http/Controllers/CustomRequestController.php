@@ -44,4 +44,27 @@ class CustomRequestController extends Controller
 
         return response()->json($customRequest, 200); // 200 = OK
     }
+    public function storeFromChat(Request $request)
+    {
+        $validated = $request->validate([
+            'chat_id' => 'required|exists:chats,id',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        // Simpan file ke folder public/assets/images/sketsa/
+        $filename = time() . '_' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('assets/images/sketsa'), $filename);
+
+        $customRequest = CustomRequest::create([
+            'chat_id' => $validated['chat_id'],
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'file_url' => 'assets/images/sketsa/' . $filename,
+            'status' => 'pending'
+        ]);
+
+        return response()->json(['success' => true, 'data' => $customRequest], 201);
+    }
 }

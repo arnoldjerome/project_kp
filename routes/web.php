@@ -82,3 +82,8 @@ Route::get('/report/pdf', [ReportController::class, 'exportPdf'])
     ->name('report.pdf');
 
 Route::get('/report/download', [ReportController::class, 'download'])->name('report.download');
+Route::get('/chat', function () {
+    return Auth::user()->role === 'admin'
+        ? view('chat.index')
+        : view('chat.user');
+})->middleware(['auth']);

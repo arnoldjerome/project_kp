@@ -10,15 +10,17 @@ class ChatController extends Controller
 {
     public function startChat(Request $request)
     {
-        // Mulai sesi chat baru antara user dan admin
+        $chat = Chat::where('user_id', $request->user_id)->first();
+        if ($chat) return response()->json($chat);
+
         $chat = Chat::create([
             'user_id' => $request->user_id,
-            'admin_id' => $request->admin_id,
+            'admin_id' => 1, // default admin
             'started_at' => now(),
         ]);
-
         return response()->json($chat);
     }
+
 
     public function endChat($id)
     {
@@ -42,6 +44,7 @@ class ChatController extends Controller
             $latestMessage = $chat->messages->first();
             return [
                 'chat_id' => $chat->id,
+                'user_id' => $chat->user_id,
                 'user_name' => $chat->user->name,
                 'user_avatar' => '/public/assets/images/bcs.png',
                 'latest_message' => $latestMessage ? $latestMessage->message : '',
@@ -53,19 +56,33 @@ class ChatController extends Controller
     }
 
     public function getChatMessages(Chat $chat)
-{
-    $messages = $chat->messages()->orderBy('created_at')->get();
+    {
+        $messages = $chat->messages()->orderBy('created_at')->get();
 
-    return response()->json($messages);
-}
+        return response()->json($messages);
+    }
 
     public function sendMessageFromAdmin(Request $request, Chat $chat)
     {
+        $text = $request->input('message');
+
+        // Jika admin kirim [custom_request_button], ubah jadi tombol
         $message = $chat->messages()->create([
             'sender' => 'admin',
-            'message' => $request->input('message'),
+            'message' => $text, // tetap kirim teks untuk disimpan, frontend akan olah
             'timestamp' => now(),
         ]);
+
+        return response()->json($message);
+    }
+    public function sendMessageFromUser(Request $request, Chat $chat)
+    {
+        $message = $chat->messages()->create([
+            'sender' => 'user',
+            'message' => $request->message,
+            'timestamp' => now(),
+        ]);
+
         return response()->json($message);
     }
 }
