@@ -257,6 +257,7 @@
             formData.append('title', title);
             formData.append('description', description);
             formData.append('image', imageFile);
+            formData.append('user_id', {{ Auth::id() }});
 
             const res = await fetch(`/api/admin/custom-request`, {
                 method: 'POST',

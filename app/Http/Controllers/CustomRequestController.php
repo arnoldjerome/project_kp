@@ -47,20 +47,19 @@ class CustomRequestController extends Controller
     public function storeFromChat(Request $request)
     {
         $validated = $request->validate([
-            'chat_id' => 'required|exists:chats,id',
+            'chat_id' => 'required|exists:chats,id', // Boleh dipakai untuk relasi pesan, tapi bukan untuk tabel ini
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'user_id' => 'required|exists:users,id'
         ]);
 
-        // Simpan file ke folder public/assets/images/sketsa/
         $filename = time() . '_' . $request->file('image')->getClientOriginalName();
         $request->file('image')->move(public_path('assets/images/sketsa'), $filename);
 
         $customRequest = CustomRequest::create([
-            'chat_id' => $validated['chat_id'],
-            'title' => $validated['title'],
-            'description' => $validated['description'],
+            'user_id' => $validated['user_id'],
+            'request_detail' => '**' . $validated['title'] . '**: ' . $validated['description'], // gabungkan
             'file_url' => 'assets/images/sketsa/' . $filename,
             'status' => 'pending'
         ]);
