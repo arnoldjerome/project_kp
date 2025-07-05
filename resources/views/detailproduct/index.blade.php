@@ -92,8 +92,8 @@
         <h2 class="fw-normal text-dark"><b>{{ strtoupper($product->name) }}</b></h2>
         <p class="fs-5 text-dark">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
         <p class="text-dark">{{ $product->category->name }} Furniture</p>
+        <p class="text-dark"><strong>Stok:</strong> {{ $product->stock }} unit</p>
 
-        <!-- Quantity Selector: hanya tampil untuk customer -->
         @auth
           @if(Auth::user()->role === 'customer')
           <div class="d-flex align-items-center mb-3">
@@ -106,7 +106,6 @@
           @endif
         @endauth
 
-        <!-- Tombol Aksi -->
         <div class="mb-4">
           @auth
             @if(Auth::user()->role === 'customer')
@@ -129,10 +128,6 @@
           <div class="accordion-item">
             <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseDesc">Description</button></h2>
             <div id="collapseDesc" class="accordion-collapse collapse"><div class="accordion-body">{{ $product->description }}</div></div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseReturn">Stok</button></h2>
-            <div id="collapseReturn" class="accordion-collapse collapse"><div class="accordion-body">Tersedia: {{ $product->stock }} unit</div></div>
           </div>
         </div>
       </div>

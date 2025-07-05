@@ -11,35 +11,36 @@ class ChatController extends Controller
     public function startChat(Request $request)
     {
         $chat = Chat::where('user_id', $request->user_id)->first();
-        if ($chat) return response()->json($chat);
+        if ($chat)
+            return response()->json($chat);
 
         $chat = Chat::create([
             'user_id' => $request->user_id,
-            'admin_id' => 1, // default admin
+            'admin_id' => 1,
             'started_at' => now(),
         ]);
+
         return response()->json($chat);
     }
 
-
     public function endChat($id)
     {
-        // Akhiri chat
         $chat = Chat::findOrFail($id);
         $chat->ended_at = now();
         $chat->save();
 
         return response()->json($chat);
     }
-    // ChatController.php
+
     public function getChatsForAdmin()
     {
-        // Mengambil list chat dengan user, latest message dan unread count jika ada
-        $chats = Chat::with(['user', 'messages' => function ($q) {
-            $q->latest()->limit(1);
-        }])->get();
+        $chats = Chat::with([
+            'user',
+            'messages' => function ($q) {
+                $q->latest()->limit(1);
+            }
+        ])->get();
 
-        // Tambah field preview message dan last_timestamp
         $data = $chats->map(function ($chat) {
             $latestMessage = $chat->messages->first();
             return [
@@ -57,32 +58,81 @@ class ChatController extends Controller
 
     public function getChatMessages(Chat $chat)
     {
-        $messages = $chat->messages()->orderBy('created_at')->get();
+        // Cek apakah user sedang login dan merupakan admin
+        if (auth()->check() && auth()->user()->is_admin) {
+            // Admin hanya melihat pesan yang tidak disembunyikan dari tampilan admin
+            $messages = $chat->messages()
+                ->where('is_hidden_by_admin_view', false)
+                ->orderBy('created_at')
+                ->get();
+        } else {
+            // User melihat semua pesan tanpa filter
+            $messages = $chat->messages()
+                ->orderBy('created_at')
+                ->get();
+        }
 
         return response()->json($messages);
     }
+
+
 
     public function sendMessageFromAdmin(Request $request, Chat $chat)
     {
         $text = $request->input('message');
 
-        // Jika admin kirim [custom_request_button], ubah jadi tombol
         $message = $chat->messages()->create([
             'sender' => 'admin',
-            'message' => $text, // tetap kirim teks untuk disimpan, frontend akan olah
+            'message' => $text,
             'timestamp' => now(),
+            'is_hidden_by_admin' => false,
+            'is_hidden_by_admin_view' => false,
         ]);
 
         return response()->json($message);
     }
+
     public function sendMessageFromUser(Request $request, Chat $chat)
     {
         $message = $chat->messages()->create([
             'sender' => 'user',
             'message' => $request->message,
             'timestamp' => now(),
+            'is_hidden_by_admin' => false,
+            'is_hidden_by_admin_view' => false,
         ]);
 
         return response()->json($message);
+    }
+
+    public function hideMessage($id)
+    {
+        $message = Message::findOrFail($id);
+        $message->is_hidden_by_admin = true;
+        $message->is_hidden_by_admin_view = true;
+        $message->save();
+
+        return response()->json(['status' => 'success']);
+    }
+
+    public function clearAllMessages(Chat $chat)
+    {
+        // Sembunyikan semua pesan hanya dari tampilan admin (bukan hapus)
+        $chat->messages()->update(['is_hidden_by_admin_view' => true]);
+
+        return response()->json(['status' => 'cleared']);
+    }
+
+    public function clearAdminMessages(Chat $chat)
+    {
+        // Tandai semua pesan dari admin sebagai hidden permanen
+        $chat->messages()
+            ->where('sender', 'admin')
+            ->update([
+                'is_hidden_by_admin' => true,
+                'is_hidden_by_admin_view' => true,
+            ]);
+
+        return response()->json(['status' => 'cleared']);
     }
 }

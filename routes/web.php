@@ -87,3 +87,6 @@ Route::get('/chat', function () {
         ? view('chat.index')
         : view('chat.user');
 })->middleware(['auth']);
+
+Route::post('/api/admin/messages/{id}/hide', [ChatController::class, 'hideMessage']);
+
