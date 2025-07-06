@@ -58,22 +58,16 @@ class ChatController extends Controller
 
     public function getChatMessages(Chat $chat)
     {
-        // Cek apakah user sedang login dan merupakan admin
-        if (auth()->check() && auth()->user()->is_admin) {
-            // Admin hanya melihat pesan yang tidak disembunyikan dari tampilan admin
-            $messages = $chat->messages()
-                ->where('is_hidden_by_admin_view', false)
-                ->orderBy('created_at')
-                ->get();
-        } else {
-            // User melihat semua pesan tanpa filter
-            $messages = $chat->messages()
-                ->orderBy('created_at')
-                ->get();
-        }
+        $messages = $chat->messages()
+            ->when(auth()->check() && auth()->user()->is_admin, function ($query) {
+                $query->where('is_hidden_by_admin_view', false);
+            })
+            ->orderBy('created_at')
+            ->get();
 
         return response()->json($messages);
     }
+
 
 
 
@@ -117,11 +111,12 @@ class ChatController extends Controller
 
     public function clearAllMessages(Chat $chat)
     {
-        // Sembunyikan semua pesan hanya dari tampilan admin (bukan hapus)
-        $chat->messages()->update(['is_hidden_by_admin_view' => true]);
+        // Soft delete semua pesan dalam chat ini
+        $chat->messages()->delete();
 
         return response()->json(['status' => 'cleared']);
     }
+
 
     public function clearAdminMessages(Chat $chat)
     {

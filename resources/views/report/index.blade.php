@@ -75,6 +75,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('report.index') }}">Report</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/orders') }}">Orders</a>
+                            </li>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
@@ -190,7 +193,7 @@
                     <tbody>
                         @foreach ($customRequests as $req)
                             <tr>
-                                <td>{{ $req->name }}</td>
+                                <td>{{ $req->request_detail }}</td>
                                 <td>{{ $req->created_at->format('d M Y') }}</td>
                             </tr>
                         @endforeach

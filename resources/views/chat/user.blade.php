@@ -1,10 +1,3 @@
-<!-- /*
-* Bootstrap 5
-* Template Name: Furni
-* Template Author: Untree.co
-* Template URI: https://untree.co/
-* License: https://creativecommons.org/licenses/by/3.0/
-*/ -->
 <!doctype html>
 <html lang="en">
 
@@ -93,6 +86,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/report') }}">Report</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/orders') }}">Orders</a>
+                            </li>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
@@ -151,6 +147,10 @@
                     <div class="mb-3">
                         <label for="requestImage" class="form-label">Upload Gambar Sketsa</label>
                         <input type="file" class="form-control" id="requestImage" accept="image/*" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="requestPrice" class="form-label">Harga (Rp)</label>
+                        <input type="number" class="form-control" id="requestPrice" required>
                     </div>
                     <div class="mb-3">
                         <label for="requestDescription" class="form-label">Deskripsi</label>
@@ -249,6 +249,7 @@
             const title = document.getElementById('requestTitle').value.trim();
             const description = document.getElementById('requestDescription').value.trim();
             const imageFile = document.getElementById('requestImage').files[0];
+            const price = document.getElementById('requestPrice').value.trim();
 
             if (!title || !description || !imageFile || !currentChatId) return;
 
@@ -257,6 +258,7 @@
             formData.append('title', title);
             formData.append('description', description);
             formData.append('image', imageFile);
+            formData.append('price', document.getElementById('requestPrice').value);
             formData.append('user_id', {{ Auth::id() }});
 
             const res = await fetch(`/api/admin/custom-request`, {
@@ -268,8 +270,22 @@
                 bootstrap.Modal.getInstance(document.getElementById('customRequestModal')).hide();
                 document.getElementById('customRequestForm').reset();
                 alert('Request berhasil dikirim!');
-            } else {
-                alert('Gagal mengirim request.');
+
+                const now = new Date();
+                const formattedTime = now.toLocaleString('id-ID', {
+                    dateStyle: 'full',
+                    timeStyle: 'short'
+                });
+
+                const messageText = `Pesanan Custom Request sudah saya buat.\nWaktu: ${formattedTime}`;
+
+                await fetch(`/api/user/chats/${currentChatId}/messages`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: messageText })
+                });
+
+                loadMessages();
             }
         });
 

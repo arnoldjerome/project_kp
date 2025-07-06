@@ -81,4 +81,19 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order deleted successfully']);
     }
+
+    public function showPendingOrders()
+    {
+        $orders = Order::where('status', 'pending')->with(['user', 'items.product'])->get();
+        return view('orders.index', compact('orders'));
+    }
+
+    public function markAsPaid($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'paid';
+        $order->save();
+
+        return response()->json(['success' => true]);
+    }
 }

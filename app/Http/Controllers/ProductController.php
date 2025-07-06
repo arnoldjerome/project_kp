@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         try {
             $validated = $request->validate([
-                'name' => 'required|string|max:255',
+                'name' => 'required|string|max:255|unique:products,name',
                 'description' => 'required|string',
                 'price' => 'required|numeric',
                 'stock' => 'required|integer',
@@ -58,7 +58,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:products,name,' . $id,
             'description' => 'required|string',
             'price' => 'required|numeric',
             'stock' => 'required|integer',

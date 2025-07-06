@@ -36,6 +36,7 @@ class CheckoutController extends Controller
             'quantity' => $quantity,
             'price' => $product->price,
         ]);
+        $product->decrement('stock', $quantity);
 
         // Simpan pembayaran
         $payment = Payment::create([

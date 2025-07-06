@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\OrderController;
 
 // Landing & Pages
 Route::get('/', [WelcomeController::class, 'index']);
@@ -29,7 +30,7 @@ Route::post('/login', [UserController::class, 'login'])->name('login.process');
 Route::post('/register', [UserController::class, 'store'])->name('register.process');
 Route::post('/logout', function () {
     Auth::logout();
-    return redirect('/login');
+    return redirect('/');
 })->name('logout');
 
 // Checkout Flow
@@ -64,7 +65,7 @@ Route::get('/invoice', function () {
 
 // Admin Custom Request
 Route::get('/customrequests', [CustomRequestController::class, 'index'])->name('customrequests.index');
-Route::post('/customrequests/{id}/approve', [CustomRequestController::class, 'updateStatus'])->name('customrequests.approve');
+Route::post('/customrequests/{id}/status', [CustomRequestController::class, 'updateStatus'])->name('customrequests.updateStatus');
 
 
 Route::middleware(['auth'])->put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
@@ -89,4 +90,7 @@ Route::get('/chat', function () {
 })->middleware(['auth']);
 
 Route::post('/api/admin/messages/{id}/hide', [ChatController::class, 'hideMessage']);
+
+Route::get('/orders', [OrderController::class, 'showPendingOrders'])->middleware(['auth'])->name('orders.pending');
+Route::post('/orders/{id}/pay', [OrderController::class, 'markAsPaid'])->middleware(['auth'])->name('orders.pay');
 

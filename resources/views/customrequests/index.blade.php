@@ -61,6 +61,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/report') }}">Report</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/orders') }}">Orders</a>
+                                </li>
                             @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>
@@ -120,7 +123,7 @@
                             <img src="{{ asset($request->file_url) }}" class="card-img-top" alt="Sketsa"
                                 style="height: 250px; object-fit: cover;">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Request by User #{{ $request->user_id }}</h5>
+                                <h5>{{ $request->user->name ?? 'User' }} ({{ $request->user->email ?? '' }})</h5>
                                 <p class="card-text">{{ $request->request_detail }}</p>
                                 <p class="card-text"><strong>Harga:</strong>
                                     Rp{{ number_format($request->price, 0, ',', '.') }}</p>
@@ -132,13 +135,22 @@
                                         </span>
                                     </div>
 
-                                    @if ($request->status === 'pending')
-                                        <button class="btn btn-success w-100 approve-btn" data-id="{{ $request->id }}"
-                                            data-url="{{ route('customrequests.approve', $request->id) }}">
-                                            Approve
-                                        </button>
+                                    @if ($request->status !== 'done')
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary w-100 dropdown-toggle" type="button"
+                                                id="dropdownMenuButton{{ $request->id }}" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                Update Status
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $request->id }}">
+                                                <li><a class="dropdown-item update-status" href="#" data-id="{{ $request->id }}"
+                                                        data-status="approved">Approved</a></li>
+                                                <li><a class="dropdown-item update-status" href="#" data-id="{{ $request->id }}"
+                                                        data-status="done">Selesai</a></li>
+                                            </ul>
+                                        </div>
                                     @else
-                                        <button class="btn btn-outline-secondary w-100" disabled>Approved</button>
+                                        <button class="btn btn-outline-secondary w-100" disabled>Selesai</button>
                                     @endif
                                 </div>
                             </div>
@@ -149,10 +161,6 @@
         </div>
     </div>
     <!-- End Custom Request List -->
-
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/tiny-slider.js"></script>
-    <script src="/assets/js/custom.js"></script>
 
 
     <!-- Start Footer Section -->
@@ -268,33 +276,38 @@
     </footer>
     <!-- End Footer Section -->
 
+    <!-- jQuery dulu -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Baru bootstrap.bundle.js -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lalu custom scripts -->
     <script src="assets/js/tiny-slider.js"></script>
     <script src="assets/js/custom.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script>
         $(document).ready(function () {
-            $('.approve-btn').click(function () {
-                var button = $(this);
-                var requestId = button.data('id');
-                var url = button.data('url');
+            $('.update-status').click(function (e) {
+                e.preventDefault();
+                const id = $(this).data('id');
+                const status = $(this).data('status');
+                const url = `/customrequests/${id}/status`;
 
                 $.ajax({
                     url: url,
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        status: 'approved'
+                        status: status
                     },
-                    success: function (response) {
-                        // Ubah teks tombol, nonaktifkan, ubah status
-                        button.text('Approved').removeClass('btn-success').addClass('btn-outline-secondary').prop('disabled', true);
-                        $('#status-badge-' + requestId).removeClass('bg-secondary').addClass('bg-success').text('Approved');
+                    success: function (res) {
+                        alert('Status updated to ' + status);
+                        location.reload(); // Bisa diganti DOM update jika ingin lebih smooth
                     },
-                    error: function (xhr) {
-                        alert('Gagal mengubah status. Silakan coba lagi.');
+                    error: function () {
+                        alert('Gagal update status');
                     }
                 });
             });

@@ -66,6 +66,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/report') }}">Report</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/orders') }}">Orders</a>
+                            </li>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/invoice') }}">Invoice</a>

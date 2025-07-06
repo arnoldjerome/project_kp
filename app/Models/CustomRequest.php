@@ -14,6 +14,7 @@ class CustomRequest extends Model
         'request_detail',
         'file_url',
         'status',
+        'price',
     ];
 
     public function user()
