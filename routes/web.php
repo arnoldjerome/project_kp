@@ -57,7 +57,7 @@ Route::get('/invoice', function () {
     $orders = \App\Models\Order::with(['items.product', 'payment'])
         ->where('user_id', $user->id)
         ->whereHas('payment', function ($query) {
-            $query->where('status', ['pending','paid']);
+            $query->where('status', ['pending', 'paid']);
         })
         ->get();
     return view('invoice.index', compact('orders'));
@@ -73,8 +73,8 @@ Route::middleware(['auth'])->put('/products/{product}', [ProductController::clas
 Route::post('/products', [ProductController::class, 'store'])->middleware('auth')->name('products.store');
 
 Route::get('/report', [ReportController::class, 'index'])
-->middleware(['auth'])
-->name('report.index');
+    ->middleware(['auth'])
+    ->name('report.index');
 
 
 
@@ -93,4 +93,6 @@ Route::post('/api/admin/messages/{id}/hide', [ChatController::class, 'hideMessag
 
 Route::get('/orders', [OrderController::class, 'showPendingOrders'])->middleware(['auth'])->name('orders.pending');
 Route::post('/orders/{id}/pay', [OrderController::class, 'markAsPaid'])->middleware(['auth'])->name('orders.pay');
-
+Route::delete('/products/{id}', [ProductController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('products.destroy');
